@@ -1,0 +1,66 @@
+#set($path="http://localhost:8080/shop")
+<html>
+<head>
+<title>产品类别管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="$path/css/vip.css" type="text/css">
+<script language="JavaScript">
+
+	function toPage(p){
+		var form = document.forms[0];
+		form.currentPage.value=p;
+		form.submit();
+	}
+
+    function querylink(){
+    	window.location="$path/producttype/queryUI.do"
+    }
+</script>
+<script language=JavaScript src="$path/js/FoshanRen.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" marginwidth="0" marginheight="0">
+	<form action="$path/productstyle/list.do" method="get">
+	<input type="hidden" name="productid" value="$!{productid}"/>
+ 	<table width="98%" border="0" cellspacing="1" cellpadding="2" align="center">
+	    <tr>
+	      <td width="5%" nowrap bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">修改</font></div></td>
+	      <td width="20%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">名称</font></div></td>
+		  <td nowrap bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">产品图片</font></div></td>
+	    </tr>
+	    
+	    #foreach($productstyle in $result)
+	    <tr> 
+		      <td bgcolor="f5f5f5">
+			      <div align="center">
+			          <a href="$path/productstyle/editUI.do?id=$!{productstyle.id}&productid=$!{productid}">
+			              <img src="$path/images/edit.gif" width="15" height="16" border="0">
+			          </a>
+			      </div>
+		      </td>
+		      <td bgcolor="f5f5f5">
+		      	  <div align="center">${productstyle.name}</div>
+		      </td>
+		      <td bgcolor="f5f5f5" align="center"><img src="$path$productstyle.getFullImagePath()" width="100" height="50" border="0">
+		      </td>
+		 </tr>
+	     #end
+	      
+	      
+	      <tr>
+	       <td bgcolor="f5f5f5" colspan="7" align="center">
+	        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+	          <tr> 
+	            <td width="5%"></td>
+	            <td width="85%">
+	              <input name="AddDic" type="button" class="frm_btn" id="AddDic" onClick="javascript:window.location.href='$path/productstyle/addUI.do?productid=$!{productid}'" value="添加样式"/> &nbsp;&nbsp;
+				  <input name="query" type="button" class="frm_btn" id="query" onClick="javascript:querylink()" value=" 查 询 "/> &nbsp;&nbsp;
+	            </td>
+	          </tr>
+	        </table>
+	      </td>
+	    </tr>
+	  </table>
+      </form>
+</body>
+</html>

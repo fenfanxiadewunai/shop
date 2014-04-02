@@ -1,0 +1,80 @@
+#set($path="http://localhost:8080/shop")
+<html>
+<head>
+<title> 类别选择 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="$path/css/vip.css" type="text/css">
+
+<SCRIPT language=JavaScript>
+function checkIt(){
+	var objForm = document.forms[0];
+	var form = opener.document.forms[0];
+	if (form){
+		form.typeid.value = objForm.dicId.value;
+		form.v_type_name.value = objForm.dicName.value;
+	}
+	window.close();
+}
+function getDicName(p_id,p_name){
+	var objForm = document.forms[0];
+	objForm.dicId.value = p_id;
+	objForm.dicName.value = p_name;
+}
+</SCRIPT>
+
+<style>
+	.inputText{
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		color: #666666;
+		border: 1px solid #999999;
+	}
+	body {
+		font-family: Georgia, "Times New Roman", Times, serif;
+		font-size: 12px;
+		color: #666666;
+	}
+</style>
+</head>
+
+<body>
+>>产品类别列表,请选择分类:<br>
+导航：<a href="$path/product/selectUI.do">顶级目录</a>
+#if($menutypes)
+   #foreach($m in $menutypes)
+       >><a href="$path/product/selectUI.do?typeid=${m.typeid}">${m.name}</a>
+   #end
+#end
+
+<form method="post" name="main" action="">
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+  <input type="hidden" name="dicId">
+  <input type="hidden" name="dicName">
+	<tr>
+		<td id="typecontent">
+		
+		<table width="100%" border="0">
+		<tr>
+		 #foreach($ptype in $result)
+			 <td>
+			    #if($ptype.child>0)
+			     <a href="$path/product/selectUI.do?typeid=${ptype.typeid}">${ptype.name}</a>    
+			    #else
+			     <input type="radio" name="type" value="${ptype.typeid}" onclick="javascript:getDicName('${ptype.typeid}','${ptype.name}')">${ptype.name}
+			    #end
+			 </td>
+			#if($velocityCount%5==0)</tr><tr>#end
+		 #end
+	   </tr>
+	   </table>
+	</td></tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="button" name="create" value="确认" onclick="javascript:checkIt()">
+			<input type="button" name="cancel" value="取消" onclick="javascript:window.close()">
+	    </td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

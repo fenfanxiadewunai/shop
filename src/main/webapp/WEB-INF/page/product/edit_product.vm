@@ -1,0 +1,120 @@
+#set($path="http://localhost:8080/shop")
+<html>
+<head>
+<title>修改产品</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="$path/css/vip.css" type="text/css">
+<SCRIPT language=JavaScript src="$path/js/FoshanRen.js"></SCRIPT>
+<script type="text/javascript" src="$path/js/jscripts/tiny_mce/tiny_mce.js"></script>
+<script language="javascript" type="text/javascript">
+
+function Formfield(name, label){
+	this.name=name;
+	this.label=label;
+}
+function verifyForm(objForm){
+	tinyMCE.triggerSave();//手动把iframe的值赋给textarea表单元素
+	var list  = new Array(new Formfield("name", "产品名称"),new Formfield("typeid", "产品类型"),
+	new Formfield("baseprice", "产品底价"),new Formfield("marketprice", "产品市场价")
+	,new Formfield("sellprice", "产品销售价"),new Formfield("description", "产品描述"));
+	for(var i=0;i<list.length;i++){
+		var objfield = eval("objForm."+ list[i].name);
+		if(trim(objfield.value)==""){
+			alert(list[i].label+ "不能为空");
+			if(objfield.type!="hidden" && objfield.focus()) objfield.focus();
+			return false;
+		}
+	}
+	var imagefile = objForm.imagefile.value;
+	var ext = imagefile.substring(imagefile.length-3).toLowerCase();
+	if (ext!="jpg" && ext!="gif" && ext!="bmp" && ext!="png"){
+		alert("只允许上传gif、jpg、bmp、png！");
+		return false; 
+	}
+    return true;
+}
+function SureSubmit(objForm){
+	objForm.submit();
+} 
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form action="$path/product/edit.do" enctype="multipart/form-data" method="post" name="pvo">
+  <input type="hidden" name="typeid" value="$!{product.type.typeid}"/>
+  <input type="hidden" name="productid" value="$!{product.id}"/>
+  <table width="98%" border="0" cellspacing="1" cellpadding="3" align="center">
+    <tr bgcolor="6f8ac4"><td colspan="2" ><font color="#FFFFFF">添加产品：</font></td></tr>
+    <tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">产品名称  ：</div></td>
+      <td width="75%"> <input type="text" name="name" size="50" maxlength="40" value="$!{product.name}"><font color="#FF0000">*</font></td>
+    </tr>
+    <tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">产品类别<font color="#FF0000">*</font>  ：</div></td>
+      <td width="75%"> <input type="text" name="v_type_name" disabled="true" size="30" value="$!{product.type.name}"/> 
+        <input type="button" name="select" value="选择..." onClick="javaScript:winOpen('$path/product/selectUI.do','列表',600,400)">(<a href="$path/product/selectUI.do">添加产品类别</a>)
+      </td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">底(采购)价 ：</div></td>
+      <td width="75%"> <input type="text" name="baseprice" size="10" value="$!{product.baseprice}" maxlength="10" onkeypress="javascript:InputLongNumberCheck()" />元 <font color="#FF0000">*</font></td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">市场价 ：</div></td>
+      <td width="75%"> <input type="text" name="marketprice" size="10" maxlength="10" value="$!{product.marketprice}" onkeypress="javascript:InputLongNumberCheck()"/>元 <font color="#FF0000">*</font></td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">销售价 ：</div></td>
+      <td width="75%"> <input type="text" name="sellprice" size="10" maxlength="10"  value="$!{product.sellprice}" onkeypress="javascript:InputLongNumberCheck()"/>元 <font color="#FF0000">*</font></td>
+    </tr>
+    <tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">货号 ：</div></td>
+      <td width="75%"> <input type="text" name="code" size="20" maxlength="30" value="$!{product.code}"/>(注:供货商提供的便于产品查找的编号)</td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">品牌 ：</div></td>
+      <td width="75%"> 
+          <select name="brandid" id="brandid">
+          	<option value="NONE">***无***</option>
+          	#foreach($bb in $result)
+          		<option value="${bb.code}" #if($!{product.brand.code}=="${bb.code}") selected="selected" #end>${bb.name}</option>
+          	#end
+          </select>(<a href="$path/brand/addUI.do">添加品牌</a>)</td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">适用性别 ：</div></td>
+      <td width="75%">
+      	 <select name="sex" id="sex" value="$!{product.sexrequest}">
+          	<option value="NONE" #if($!{product.sexrequest}=="NONE") selected="selected" #end>男女不限</option>
+          	<option value="MAN" #if($!{product.sexrequest}=="MAN") selected="selected" #end>男士</option>
+          	<option value="WOMEN" #if($!{product.sexrequest}=="WOMEN") selected="selected" #end>女士</option>
+          </select>
+	   </td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">型号 ：</div></td>
+      <td width="75%"> <input type="text" name="model" size="35" maxlength="30" value="$!{product.model}"/></td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">重量 ：</div></td>
+      <td width="75%"> <input type="text" name="weight" size="10" maxlength="10" value="$!{product.weight}" onkeypress="javascript:InputIntNumberCheck()"/>克</td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%"> <div align="right">购买说明 ：</div></td>
+      <td width="75%"> <input type="text" name="buyexplain" size="35" maxlength="30" value="$!{product.buyexplain}" /></td>
+    </tr>
+	<tr bgcolor="f5f5f5"> 
+      <td width="25%" valign="top"> <div align="right">产品简介<font color="#FF0000">*</font> ：</div></td>
+      <td width="75%"><textarea name="description" rows="23" cols="80">$!{product.description}</textarea></td>
+	</tr>
+    <tr bgcolor="f5f5f5"> 
+      <td colspan="2"> <div align="center"> 
+          <input type="button" name="Add" value=" 确 认 " class="frm_btn" onClick="javascript:SureSubmit(this.form)">
+          &nbsp;&nbsp;<input type="button" name="Button" value=" 返 回 " class="frm_btn" onclick="javascript:history.back()">
+        </div></td>
+    </tr>
+  </table>
+</form>
+<br>
+</body>
+</html>

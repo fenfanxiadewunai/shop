@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.UploadFile">
+
+	<insert id="add" parameterType="com.huang.domain.UploadFile">
+		INSERT INTO uploadfile
+		(filepath,uploadtime) values (#{filepath},#{uploadtime})
+	</insert>
+
+	<select id="getById" parameterType="int" resultType="com.huang.domain.UploadFile">
+		select * from uploadfile where id = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.huang.domain.UploadFile">
+	    update uploadfile set filepath=#{filepath} where id  =#{id}
+	</update>
+	
+	<select id="count" resultType="int">
+		select count(*) from uploadfile 
+	</select>
+	
+	<select id="find" parameterType="map" resultType="com.huang.domain.UploadFile">
+		select * from uploadfile order by uploadtime desc limit #{pageOffset},#{pageSize}
+	</select>
+	
+	<delete id="batchdelete" parameterType="java.util.List">
+		delete from uploadfile where id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		   #{item}
+		</foreach>
+	</delete>
+	
+	<select id="batchselect" parameterType="java.util.List" resultType="com.huang.domain.UploadFile">
+	    select * from uploadfile where id in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		   #{item}
+		</foreach>
+	</select>
+
+</mapper>
+

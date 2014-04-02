@@ -1,0 +1,98 @@
+#set($path="http://localhost:8080/shop")
+<html>
+<head>
+<title>文件管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="$path/css/vip.css" type="text/css">
+<script language="JavaScript">
+
+	function toPage(p){
+		var form = document.forms[0];
+		form.currentPage.value=p;
+		form.submit();
+	}
+	
+	function deleteFile(){
+		var form = document.forms[0];
+		form.action="$path/upload/delete.do"
+		form.submit();
+	}
+	
+	function allselect(allobj,items){
+		var state = allobj.checked;
+		if(items.length>1){
+			for(var i = 0;i<items.length;i++){
+		    	if(!items[i].disabled)items[i].checked = state;
+			}
+		}else{
+ 				if(!items.disabled)items.checked = state;
+		}
+	}
+
+</script>
+<script language=JavaScript src="$path/js/FoshanRen.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" marginwidth="0" marginheight="0">
+	<form action="$path/upload/list.do" method="get">
+	<input type="hidden" name="currentPage"/>
+ 	<table width="98%" border="0" cellspacing="1" cellpadding="2" align="center">
+	    <tr>
+	    	<td colspan="7"  bgcolor="6f8ac4" align="right">
+	        总记录数$!{page.totalCount} | 总页数$!{page.totalPage} |
+	        #if($page.hasPrePage)
+	        <a href='javascript:toPage(${page.getPrePage()})'>上一页</a>
+	        #end
+	        当前第$!{page.currentPage}页
+	        #if($page.hasNextPage)
+	        <a href='javascript:toPage(${page.getNextPage()})'>下一页</a>
+	        #end
+	        </td>
+	    </tr>
+	    <tr>
+	      <td width="10%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">选择</div></td>
+	      <td width="10%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">代号</font></div></td>
+	      <td width="50%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">文件路径</font></div></td>
+		  <td width="30%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">上传时间</font></div></td>
+	    </tr>
+	    
+	    #foreach($uploadfile in $result)
+	    <tr> 
+	    	  <td bgcolor="f5f5f5">
+		      	  <div align="center"><input type="checkbox" name="fields" value="${uploadfile.id}"></div>
+		      </td>
+		      <td bgcolor="f5f5f5">
+		      	  <div align="center">${uploadfile.id}</div>
+		      </td>
+		      <td bgcolor="f5f5f5">
+			      <div align="center">
+			          <a href="${path}${uploadfile.filepath}" target="_black">${uploadfile.filepath}
+			          </a>
+			      </div>
+		      </td>
+		      <td bgcolor="f5f5f5">
+		      	  <div align="center">${uploadfile.uploadtime}</div>
+		      </td>
+		 </tr>
+	     #end
+	      
+	      
+	      <tr>
+	       <td bgcolor="f5f5f5" colspan="7" align="center">
+	        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+	          <tr> 
+	            <td width="10%"><input type="checkbox" name="all" onclick="javascript:allselect(this,this.form.fields)">全选</td>
+	            <td width="40%">
+	            	<input type="button" class="frm_btn" id="dele" onClick="javascript:deleteFile()" value="删除文件"/> &nbsp;&nbsp;
+	            </td>
+	            <td width="50%">
+	              <input type="button" class="frm_btn" id="add" onClick="javascript:window.location.href='$path/upload/addUI.do'" value="文件上传"/> &nbsp;&nbsp;
+	            </td>
+	          </tr>
+	        </table>
+	      </td>
+	    </tr>
+	  </table>
+      </form>
+</body>
+</html>

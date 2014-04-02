@@ -1,0 +1,9 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>图片上传结束</title>
+</head>
+<body>
+<center>$message</center>
+</body>
+</html>
