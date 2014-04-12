@@ -1,0 +1,16 @@
+#set($path="http://localhost:8080/shop")
+<html>
+<head>
+	<title>随心购</title>
+</head>
+<body>
+
+
+<body>
+	
+	<center>
+		<img src="$path$imagepath"/>
+	</center>
+	
+</body>
+</html>

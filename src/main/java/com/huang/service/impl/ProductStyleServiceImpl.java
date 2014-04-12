@@ -37,4 +37,9 @@ public class ProductStyleServiceImpl implements ProductStyleService{
 		return productStyleDao.find(productid);
 	}
 
+	@Override
+	public void setVisibleStatus(int[] productstyleids, boolean status) {
+		productStyleDao.setVisibleStatus(productstyleids, status);
+	}
+
 }

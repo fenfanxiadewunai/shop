@@ -23,7 +23,7 @@ import com.huang.util.PageUtil;
 import com.huang.util.Pagenation;
 
 @Controller
-@RequestMapping("/brand")
+@RequestMapping("/controller/brand")
 public class BrandController {
 
 	@Resource
@@ -88,7 +88,7 @@ public class BrandController {
 		}
 		brandService.add(brand);
 		model.addAttribute("message", "品牌添加成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/brand/list.do");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/brand/list.do");
 		return "page/share/message";
 	}
 
@@ -131,6 +131,7 @@ public class BrandController {
 		}
 		brandService.update(brand);
 		model.addAttribute("message", "品牌修改成功");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/brand/list.do");
 		return "page/share/message";
 	}
 

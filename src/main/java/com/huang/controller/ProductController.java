@@ -3,7 +3,6 @@ package com.huang.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -25,12 +24,13 @@ import com.huang.domain.ProductType;
 import com.huang.service.BrandService;
 import com.huang.service.ProductService;
 import com.huang.service.ProductTypeService;
+import com.huang.util.ImageZipUtil;
 import com.huang.util.PageUtil;
 import com.huang.util.Pagenation;
 import com.huang.vo.ProductVO;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/controller/product")
 public class ProductController {
 	
 	public static Logger log = Logger.getLogger(ProductController.class);
@@ -116,13 +116,8 @@ public class ProductController {
 	public String toSelectUI(Model model,String typeid){
 		int count = productTypeService.countwithparentid(typeid);
 		List<ProductType> ret = productTypeService.findwithChild(count,0 , typeid);
-		List<ProductType> parents = new ArrayList<ProductType>();
 		if(typeid!=null&&!typeid.equals("")){
-			ProductType parent = productTypeService.getParentByChildId(Integer.parseInt(typeid));
-			while(parent!=null){
-				parents.add(0, parent);
-				parent = productTypeService.getParentByChildId(parent.getTypeid());
-			}
+			List<ProductType> parents = productTypeService.getParentTypes(Integer.parseInt(typeid));
 			model.addAttribute("menutypes", parents);
 		}
 		model.addAttribute("result", ret);
@@ -153,20 +148,11 @@ public class ProductController {
 			String filename = UUID.randomUUID().toString() +"." +suffix;
 			product.addProductStyle(new ProductStyle(pvo.getStylename(), filename));
 			int productid = productService.add(product);
-			byte[] bfile = cfile.getBytes();
-			String pathdir = "/images/product/" +product.getType().getTypeid()+"/"+productid+"/prototype";
-			String realpathdir = request.getSession().getServletContext()
-					.getRealPath(pathdir);
-			File savedir = new File(realpathdir);
-			if (!savedir.exists())
-				savedir.mkdirs();
-			OutputStream out = new FileOutputStream(new File(realpathdir,
-					filename));
-			out.write(bfile);
-			out.flush();
-			out.close();
+			
+			saveImageFile(cfile.getBytes(),request,product.getType().getTypeid(),productid,filename);
+			
 			model.addAttribute("message", "产品添加成功");
-			model.addAttribute("callback", "http://localhost:8080/shop/product/list.do");
+			model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
 			return "page/share/message";
 		}
 		return "page/product/add_product";
@@ -188,7 +174,7 @@ public class ProductController {
 		product.setProductVO(pvo);
 		productService.update(product);
 		model.addAttribute("message", "产品修改成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/product/list.do");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -196,7 +182,7 @@ public class ProductController {
 	public String toSetVisible(Model model,int[] productids){
 		productService.setVisibleStatus(productids, true);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/product/list.do");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -204,7 +190,7 @@ public class ProductController {
 	public String toSetDisVisible(Model model,int[] productids){
 		productService.setVisibleStatus(productids, false);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/product/list.do");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -212,7 +198,7 @@ public class ProductController {
 	public String toSetCommend(Model model,int[] productids){
 		productService.setCommendStatus(productids, true);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/product/list.do");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -220,7 +206,32 @@ public class ProductController {
 	public String toSetDisCommend(Model model,int[] productids){
 		productService.setCommendStatus(productids, false);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/product/list.do");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
 		return "page/share/message";
+	}
+	
+	private static void saveImageFile(byte[] bfile,HttpServletRequest request,int typeid,int productid,String filename) throws Exception{
+		
+		String pathdir = "/images/product/" +typeid+"/"+productid+"/prototype";
+		String prorealpathdir = request.getSession().getServletContext()
+				.getRealPath(pathdir);
+		File savedir = new File(prorealpathdir);
+		if (!savedir.exists())
+			savedir.mkdirs();
+		File oldFile = new File(prorealpathdir,filename);
+		OutputStream out = new FileOutputStream(oldFile);
+		out.write(bfile);
+		out.flush();
+		out.close();
+		
+		String path140dir = "/images/product/" +typeid+"/"+productid+"/140";
+		String real140pathdir = request.getSession().getServletContext()
+				.getRealPath(path140dir);
+		File save140dir = new File(real140pathdir);
+		if (!save140dir.exists())
+			save140dir.mkdirs();
+		File newFile = new File(save140dir,filename);
+		
+		ImageZipUtil.zipImageFileWith140Width(oldFile,newFile);
 	}
 }

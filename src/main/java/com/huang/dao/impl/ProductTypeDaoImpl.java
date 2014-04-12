@@ -1,5 +1,6 @@
 package com.huang.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +83,12 @@ public class ProductTypeDaoImpl implements ProductTypeDao{
 	}
 
 	@Override
-	public List<ProductType> findwithparent(int pageSize, int pageOffset,String parentid) {
+	public List<ProductType> findwithparent(Integer pageSize, Integer pageOffset,String parentid) {
 		Map<String,Object> params = new HashMap<String, Object>();
-		params.put("pageSize", pageSize);
-		params.put("pageOffset", pageOffset);
+		if(pageSize!=null&&pageOffset!=null){
+			params.put("pageSize", pageSize);
+			params.put("pageOffset", pageOffset);
+		}
 		if(parentid!=null&&!parentid.equals("")){
 			params.put("parentid", Integer.parseInt(parentid));
 		}
@@ -115,11 +118,13 @@ public class ProductTypeDaoImpl implements ProductTypeDao{
 	}
 
 	@Override
-	public List<ProductType> findwithChild(int pageSize, int pageOffset,
+	public List<ProductType> findwithChild(Integer pageSize, Integer pageOffset,
 			String parentid) {
 		Map<String,Object> params = new HashMap<String, Object>();
-		params.put("pageSize", pageSize);
-		params.put("pageOffset", pageOffset);
+		if(pageSize!=null&&pageOffset!=null){
+			params.put("pageSize", pageSize);
+			params.put("pageOffset", pageOffset);
+		}
 		if(parentid!=null&&!parentid.equals("")){
 			params.put("parentid", Integer.parseInt(parentid));
 		}
@@ -131,6 +136,28 @@ public class ProductTypeDaoImpl implements ProductTypeDao{
 	@Override
 	public ProductType getParentByChildId(int childTypeId) {
 		return (ProductType)dao.getSqlSession().selectOne("com.huang.mapper.ProductType.getParentByChildId", childTypeId);
+	}
+
+	@Override
+	public List<Integer> getSubTypeids(List<Integer> typeids) {
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("typeids", typeids);
+		List<Object> ret = dao.getSqlSession().selectList("com.huang.mapper.ProductType.getsubtypeid", params);
+		List<Integer> intret = new ArrayList<Integer>();
+		for(Object o:ret){
+			intret.add((Integer)o);
+		}
+		return intret;
+	}
+
+	@Override
+	public List<ProductType> getFirstSubTypes(Integer typeid) {
+		Map<String,Object> params = new HashMap<String, Object>();
+		if(typeid!=null&&typeid>0){
+			params.put("typeid", typeid);
+		}
+		List<ProductType> ret = dao.getSqlSession().selectList("com.huang.mapper.ProductType.getfirstsub", params);
+		return ret;
 	}
 
 }

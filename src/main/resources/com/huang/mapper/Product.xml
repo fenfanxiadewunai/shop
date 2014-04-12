@@ -71,10 +71,16 @@
 		from productinfo as p1 left join producttype as p2 
 		on p1.typeid=p2.typeid left join brand as p3 on p1.brandid=p3.code
 		<where>
-			<if test="name!=null">p1.name like #{name}</if>
-			<if test="typeid!=null">p1.typeid = #{typeid}</if>
-			<if test="code!=null">p1.code = #{code}</if>
-			<if test="brandid!=null">p1.brandid = #{brandid}</if>
+			<if test="visible!=null">and p1.visible=#{visible}</if>
+			<if test="name!=null">and p1.name like #{name}</if>
+			<if test="typeids!=null">and p1.typeid in
+				<foreach item="item" index="index" collection="typeids" open="(" separator="," close=")">
+				   #{item}
+				</foreach> 
+			</if>
+			<if test="code!=null">and p1.code = #{code}</if>
+			<if test="brandid!=null">and p1.brandid = #{brandid}</if>
+			<if test="sexrequest!=null">and p1.sexrequest = #{sexrequest}</if>
 			<choose>
 				<when test="startbaseprice!=null and endbaseprice!=null">
 				<![CDATA[ and p1.baseprice <=#{endbaseprice} and p1.baseprice>=#{startbaseprice}]]>
@@ -98,18 +104,41 @@
 				</when>
 			</choose>
 		</where>
-		order by p1.id desc
+		order by p1.${key} ${order}
 		limit #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="findwithtypeids" parameterType="map" resultMap="pro">
+	    select *,p1.name as p1_name,p1.visible as p1_visible,p2.typeid as p2_typeid,
+		p2.name as p2_name ,p2.visible as p2_visible,p3.code as p3_code,p3.logopath as p3_logopath,p3.name as p3_name
+		from productinfo as p1 left join producttype as p2 
+		on p1.typeid=p2.typeid left join brand as p3 on p1.brandid=p3.code where p1.visible=1 and p1.commend=1
+		<if test="typeids!=null">
+			and p1.typeid in
+			<foreach item="item" index="index" collection="typeids" open="(" separator="," close=")">
+			   #{item}
+			</foreach> 
+		</if>
+		order by p1.sellcount desc
+		<if test="pageOffset!=null and pageSize!=null">
+			limit #{pageOffset},#{pageSize}
+		</if>
 	</select>
 	
 	<select id="countByDynamic" parameterType="map" resultType="int">
 	    select count(*) from productinfo as p1 left join producttype as p2 
 		on p1.typeid=p2.typeid left join brand as p3 on p1.brandid=p3.code
 		<where>
-			<if test="name!=null">p1.name like #{name}</if>
-			<if test="typeid!=null">p1.typeid = #{typeid}</if>
-			<if test="code!=null">p1.code = #{code}</if>
-			<if test="brandid!=null">p1.brandid = #{brandid}</if>
+		    <if test="visible!=null">and p1.visible=#{visible}</if>
+			<if test="name!=null">and p1.name like #{name}</if>
+			<if test="typeids!=null">and p1.typeid in
+				<foreach item="item" index="index" collection="typeids" open="(" separator="," close=")">
+				   #{item}
+				</foreach> 
+			</if>
+			<if test="code!=null">and p1.code = #{code}</if>
+			<if test="brandid!=null">and p1.brandid = #{brandid}</if>
+			<if test="sexrequest!=null">and p1.sexrequest = #{sexrequest}</if>
 			<choose>
 				<when test="startbaseprice!=null and endbaseprice!=null">
 				<![CDATA[ and p1.baseprice <=#{endbaseprice} and p1.baseprice>=#{startbaseprice}]]>
@@ -148,6 +177,34 @@
 		   #{productid}
 		</foreach>
 	</update>
+	
+	<select id="getBrandsByProductTypeId" parameterType="int" resultType="com.huang.domain.Brand">
+	    SELECT * from brand where code in (select brandid from productinfo where visible=true and typeid=#{typeid} group by brandid)
+	</select>
+	
+	<select id="getBrandsByProductTypeIds" parameterType="map" resultType="com.huang.domain.Brand">
+	    SELECT * from brand where code in (select brandid from productinfo where visible=true 
+	    <if test="typeids!=null">
+		    and typeid in
+		    <foreach item="item" index="index" collection="typeids" open="(" separator="," close=")">
+				 #{item}
+			</foreach>
+		</if> 
+	    group by brandid)
+	</select>
+	
+	<select id="getListProductInfoByIds" parameterType="map" resultMap="pro">
+	    select *,p1.name as p1_name,p1.visible as p1_visible,p2.typeid as p2_typeid,
+		p2.name as p2_name ,p2.visible as p2_visible,p3.code as p3_code,p3.logopath as p3_logopath,p3.name as p3_name
+		from productinfo as p1 left join producttype as p2 
+		on p1.typeid=p2.typeid left join brand as p3 on p1.brandid=p3.code where p1.id in
+	    <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+			 #{item}
+		</foreach>
+		<if test="pageOffset!=null and pageSize!=null">
+			limit #{pageOffset},#{pageSize}
+		</if>
+	</select>
 	
 </mapper>
 

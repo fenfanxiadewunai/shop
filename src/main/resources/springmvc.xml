@@ -9,13 +9,15 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:component-scan base-package="com.huang.controller,com.huang.service.impl,com.huang.dao.impl" />
+	<context:component-scan
+		base-package="com.huang.controller,com.huang.service.impl,com.huang.dao.impl" />
 
 
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/shop?characterEncoding=utf8" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/shop?characterEncoding=utf8" />
 		<property name="username" value="root" />
 		<property name="password" value="123456" />
 	</bean>
@@ -51,9 +53,18 @@
 		<property name="suffix" value=".vm" />
 		<property name="contentType" value="text/html;charset=utf-8"></property>
 	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+	</bean>
 	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-      <property name="maxUploadSize" value="104857600"/>
-   </bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.huang.filter.TimeHandlerInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

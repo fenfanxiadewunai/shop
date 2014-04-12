@@ -40,7 +40,7 @@ function SureSubmit(objForm){
 </head>
 
 <body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form action="$path/product/edit.do" enctype="multipart/form-data" method="post" name="pvo">
+<form action="$path/controller/product/edit.do" enctype="multipart/form-data" method="post" name="pvo">
   <input type="hidden" name="typeid" value="$!{product.type.typeid}"/>
   <input type="hidden" name="productid" value="$!{product.id}"/>
   <table width="98%" border="0" cellspacing="1" cellpadding="3" align="center">
@@ -52,7 +52,7 @@ function SureSubmit(objForm){
     <tr bgcolor="f5f5f5"> 
       <td width="25%"> <div align="right">产品类别<font color="#FF0000">*</font>  ：</div></td>
       <td width="75%"> <input type="text" name="v_type_name" disabled="true" size="30" value="$!{product.type.name}"/> 
-        <input type="button" name="select" value="选择..." onClick="javaScript:winOpen('$path/product/selectUI.do','列表',600,400)">(<a href="$path/product/selectUI.do">添加产品类别</a>)
+        <input type="button" name="select" value="选择..." onClick="javaScript:winOpen('$path/controller/product/selectUI.do','列表',600,400)">(<a href="$path/product/selectUI.do">添加产品类别</a>)
       </td>
     </tr>
 	<tr bgcolor="f5f5f5"> 

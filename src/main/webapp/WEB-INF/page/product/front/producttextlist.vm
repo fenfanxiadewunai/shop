@@ -1,0 +1,243 @@
+#set($path="http://localhost:8080/shop")
+<html>
+<head>
+	<title>$!{producttype.name} 随心购</title>
+	<link href="$path/css/global/header01.css" rel="stylesheet" type="text/css">
+	<link href="$path/css/product/list.css" rel="stylesheet" type="text/css" />	
+	<link href="$path/css/global/topsell.css" rel="stylesheet" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="Keywords" content="$!{producttype.name}">
+	<meta name="description" content="$!{producttype.note}">
+	<script language=JavaScript src="$path/js/xmlhttp.js"></script>
+	<script language=JavaScript src="$path/js/jquery-1.11.0.min.js"></script>
+	<script language="javascript">
+	
+		function toPage(p){
+			var form = document.forms[0];
+			form.currentpage.value=p;
+			form.submit();
+		}
+		
+		function toSort(s){
+			var form = document.forms[0];
+			form.sort.value=s;
+			form.submit();
+		}
+		
+		function toBrand(s){
+			var form = document.forms[0];
+			form.brandid.value=s;
+			form.submit();
+		}
+		
+		function toSex(s){
+			var form = document.forms[0];
+			form.sex.value=s;
+			form.submit();
+		}
+		
+		function toType(s){
+			var form = document.forms[0];
+			form.typeid.value=s;
+			form.submit();
+		}
+		
+		function toStyle(p){
+			var form = document.forms[0];
+			form.style.value=p;
+			form.submit();
+		}
+	
+		function pageInit(){
+			getTopSell("$!{producttype.typeid}");
+		}
+		
+		$(function(){
+			$("#mybody").ready(function(){
+				jQuery.ajax({
+					url:"http://localhost:8080/shop/productselect/topsell.do",
+					type:"post",
+					dataType:"text",
+					data:{
+						typeid:"$!{pvo.typeid}"
+					},
+					success:function(responseText){
+						$("#salespromotion").append(responseText);
+					},
+					error:function(){
+						alert("system error");
+					}
+				});
+				jQuery.ajax({
+					url:"http://localhost:8080/shop/productselect/viewhistory.do",
+					type:"post",
+					dataType:"text",
+					data:{
+						typeid:"$!{pvo.typeid}"
+					},
+					success:function(responseText){
+						$("#viewHistory").append(responseText);
+					},
+					error:function(){
+						alert("system error");
+					}
+				})
+			})
+			
+		})
+		
+		
+		
+	</script>
+</head>
+<body>
+
+
+<body class="ProducTypeHome2" id="mybody">
+	<form action="$path/product/list.do" method="get">
+		<input type="hidden" name="currentpage"/>
+		<input type="hidden" name="sex" value="$!{pvo.sex}"/>
+		<input type="hidden" name="sort" value="$!{pvo.sort}"/>
+		<input type="hidden" name="typeid" value="$!{pvo.typeid}"/>
+		<input type="hidden" name="brandid" value="$!{pvo.brandid}"/>
+		<input type="hidden" name="style" value="$!{pvo.style}"/>
+	</form>
+	#parse("page/share/Head.vm")
+    <div id="position">您现在的位置:  <a href="javascript:toType('')">随心购</a>  
+    				#if($menutypes)
+					   #foreach($m in $menutypes)
+					       >> #if($!{pvo.typeid}==$m.typeid)<em>${m.name}</em>#else<a href="javascript:toType(${m.typeid})">${m.name}</a>#end
+					   #end
+					#end
+	（${page.totalCount}个）
+	</div>
+
+    <!--页面左侧分类浏览部分-->
+      <div class="browse_left">
+	         <div class="browse">
+	            <div class="browse_t" align="center">$!{typeitself.name}子类目</div>
+				<ul>
+					#if($subtypes)
+					   #foreach($sb in $subtypes)
+					       <li class='bj_blue' align="center"><a href="javascript:toType(${sb.typeid})">${sb.name}</a></li>
+					   #end
+					#end
+				</ul>
+		     </div>
+			 <div id="sy_biankuang" align="center">
+	        	<div class="lanmu_font">最畅销$!{typeitself.name}</div>
+	        	<div style="PADDING-LEFT: 10px; COLOR: #333333" id="salespromotion"></div>
+			 </div>
+		 	 <br/>
+			 <div class="browse" align="center">
+		          <div class="browse_t">您浏览过的商品</div>
+				  <ul id="viewHistory"></ul>
+		     </div>
+      </div>
+    
+    <!--页面右侧分类列表部分开始-->
+    	<div class="browse_right">
+    	
+	         <div class="select_reorder" style="height:130px;">
+	              	 <div class="reorder_l">请选择排序方式：
+	              	 #if($pvo.sort=="selldesc") <strong><em>销量多到少</em></strong>#end #if($pvo.sort!="selldesc")<a href="javascript:toSort('selldesc')">销量多到少</a>#end
+					  | #if($pvo.sort=="sellpricedesc")<strong><em>价格高到低</em></strong>#end #if($pvo.sort!="sellpricedesc")<a href="javascript:toSort('sellpricedesc')">价格高到低</a>#end
+					  | #if($pvo.sort=="sellpriceasc")<strong><em>价格低到高</em></strong>#end #if($pvo.sort!="sellpriceasc")<a href="javascript:toSort('sellpriceasc')">价格低到高</a>#end
+					  | #if($pvo.sort=="createdatedesc")<strong><em>最近上架时间</em></strong>#end #if($pvo.sort!="createdatedesc")<a href="javascript:toSort('createdatedesc')">最近上架时间</a>#end
+					 </div>
+					 
+				     <div class="reorder_r">显示方式：
+				    	 #if($pvo.style=="image") <strong><em>图文版</em></strong>#end #if($pvo.style!="image")<a href="javascript:toStyle('image')">图文版</a>#end
+				     	| #if($pvo.style=="text") <strong><em>图片版</em></strong>#end #if($pvo.style!="text")<a href="javascript:toStyle('text')">图片版</a>#end
+				     </div>
+				  	 
+				  	 <div class="emptybox"></div>
+					 
+					 <div class="brand">
+						<div class="FindByHint">按<strong>品牌</strong>选择：</div>
+						<ul class="CategoryListTableLevel1">
+						       #foreach($brand in $brands)
+								  #if(${pvo.brandid}==$brand.code)<li><strong><em>$brand.name</em></strong></li>#end #if(${pvo.brandid}!=$brand.code)<li><a href="javascript:toBrand('$brand.code')">$brand.name</a></li>#end
+							   #end
+							   #if(${pvo.brandid}=="")<li><strong><em>全部</em></strong></li>#end #if(${pvo.brandid}!="")<li><a href="javascript:toBrand('')">全部</a></li>#end
+						</ul>
+					 </div>
+					 
+					 <div class="SubCategoryBox">
+						<div class="FindByHint">按<strong>男女款</strong>选择：</div>
+						<ul class="CategoryListTableLevel1">
+							#if(${pvo.sex}=="MAN")<li><strong><em>男款</em></strong></li>#end #if(${pvo.sex}!="MAN")<li><a href="javascript:toSex('MAN')">男款</a></li>#end
+							#if(${pvo.sex}=="WOMEN")<li><strong><em>女款</em></strong></li>#end #if(${pvo.sex}!="WOMEN")<li><a href="javascript:toSex('WOMEN')">女款</a></li>#end
+							#if(${pvo.sex}=="NONE")<li><strong><em>男女均可</em></strong></li>#end #if(${pvo.sex}!="NONE")<li><a href="javascript:toSex('NONE')">男女均可</a></li>#end
+							#if(${pvo.sex}=="")<li><strong><em>全部</em></strong></li>#end #if(${pvo.sex}!="")<li><a href="javascript:toSex('')">全部</a></li>#end
+						</ul>
+					  </div>
+					 
+			  </div>
+					 
+					 
+					 
+					 
+			    <div id="divNaviTop" class="number">
+			          <div class="number_l">以下<span class='number_white'>${page.totalCount}</span>条结果按<span class="number_white">
+						  #if($pvo.sort=="selldesc")销量多到少 #end
+						  #if($pvo.sort=="sellpricedesc")价格高到低 #end
+						  #if($pvo.sort=="sellpriceasc")价格低到高 #end
+						  #if($pvo.sort=="createdatedesc")最近上架时间 #end
+						  </span>排列，显示方式是<span class="number_white">图文版</span>　每页显示<span class="number_white">${page.pageSize}</span>条
+					  </div>
+				      <div class="turnpage">
+		                	<div><em>第${page.currentPage}页</em></div>
+				      </div>
+			     </div>
+			     
+			     
+			     #foreach($productinfo in $result)
+			    		<div class="goodslist">
+          					<div class="goods" style="cursor:hand;background:url(#if($productinfo.getStyle())$path$productinfo.getStyle().get140ImagePath()#else$path/images/yf.jpg#end) center center no-repeat">
+          					    <a href="$path/viewproduct/product.do?productid=${productinfo.id}" target="_blank">
+					            	<img src="$path/images/global/product_blank.gif" alt="${productinfo.name}" width="140" height="168"  border="0"/>
+					           </a>
+            				</div>
+          					<div class="goods_right">
+                				<h2><a href="$path/viewproduct/product.do?productid=${productinfo.id}" target="_blank" title="${productinfo.name}">${productinfo.name}</a></h2>
+		           				<div class="message">
+		           					<ul>
+			           				    #if($productinfo.brand)
+			           				    	<li>品牌：${productinfo.brand.name}</li>
+			           				    #end
+				  					 </ul>
+				  				</div>
+		           				<div class="content">&nbsp;&nbsp;&nbsp;${productinfo.getSimpleDesc()}</div>
+		           				<div class="message_bottom">
+		                			<div class="save"><s>￥${productinfo.marketprice}</s>　<strong><em>￥${productinfo.sellprice}</em></strong>　节省：${productinfo.savedPrice()}</div>
+				        			<div class="buy"><a href=""><img src='$path/images/sale.gif' width='84' height='24' border='0' /></a></div>
+		          				 </div>
+		          			 </div>
+          				 	 <div class="empty_box"></div>
+          				</div>
+				 #end
+			     
+				     
+				
+			    <div id="divNaviBottom" class="page_number">
+			     	 <div class="turnpage turnpage_bottom">
+			     	 	 <td colspan="11"  bgcolor="6f8ac4" align="right">
+			                   总记录数${page.totalCount} | 总页数${page.totalPage} |
+				             #if($page.hasPrePage)
+				        		<a href='javascript:toPage(${page.getPrePage()})'>上一页</a>
+				        	 #end
+				        	当前第${page.currentPage}页
+				        	#if($page.hasNextPage)
+	        					<a href="javascript:toPage(${page.getNextPage()})">下一页</a>
+				        	#end
+			        	</td>
+		              </div>
+			    </div>
+    	</div>
+	#parse("page/share/Foot.vm")
+	
+
+	
+</body>
+</html>

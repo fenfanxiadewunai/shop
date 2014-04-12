@@ -14,7 +14,7 @@
 	
 	function deleteFile(){
 		var form = document.forms[0];
-		form.action="$path/upload/delete.do"
+		form.action="$path/controller/upload/delete.do"
 		form.submit();
 	}
 	
@@ -34,7 +34,7 @@
 </head>
 
 <body bgcolor="#FFFFFF" text="#000000" marginwidth="0" marginheight="0">
-	<form action="$path/upload/list.do" method="get">
+	<form action="$path/controller/upload/list.do" method="get">
 	<input type="hidden" name="currentPage"/>
  	<table width="98%" border="0" cellspacing="1" cellpadding="2" align="center">
 	    <tr>
@@ -86,7 +86,7 @@
 	            	<input type="button" class="frm_btn" id="dele" onClick="javascript:deleteFile()" value="删除文件"/> &nbsp;&nbsp;
 	            </td>
 	            <td width="50%">
-	              <input type="button" class="frm_btn" id="add" onClick="javascript:window.location.href='$path/upload/addUI.do'" value="文件上传"/> &nbsp;&nbsp;
+	              <input type="button" class="frm_btn" id="add" onClick="javascript:window.location.href='$path/controller/upload/addUI.do'" value="文件上传"/> &nbsp;&nbsp;
 	            </td>
 	          </tr>
 	        </table>

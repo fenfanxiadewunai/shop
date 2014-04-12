@@ -1,5 +1,6 @@
 package com.huang.domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.huang.service.ProductService;
+import com.huang.service.ProductTypeService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)  
@@ -18,6 +20,9 @@ import com.huang.service.ProductService;
 public class testProduct {
 	@Resource 
 	private ProductService productService;
+	
+	@Resource
+	private ProductTypeService productTypeService;
 
 	@Test
     public void testAdd() {
@@ -104,4 +109,53 @@ public class testProduct {
 		int[] productids = new int[]{1,2};
 		productService.setCommendStatus(productids, true);
     }
+	
+	@Test
+    public void testFindwithtypeids() {
+		List<Integer> alltypeids = productTypeService.getAllSubTypeids(5);
+		List<ProductInfo> ret = productService.findwithtypeids(alltypeids,4);
+		for(ProductInfo p:ret){
+			System.out.println(p);
+		}
+    }
+	
+	@Test
+	public void testGetBrandsByProductTypeId(){
+		List<Brand> ret = productService.getBrandsByProductTypeId(28);
+		for(Brand b:ret){
+			System.out.println(b);
+		}
+	}
+	
+	@Test
+	public void testGetBrandsByProductTypeIds(){
+		List<Integer> typeids = new ArrayList<Integer>();
+		typeids.add(5);
+		typeids.add(9);
+		typeids.add(10);
+		typeids.add(11);
+		typeids.add(12);
+		typeids.add(28);
+		List<Brand> ret = productService.getBrandsByProductTypeIds(typeids);
+		for(Brand b:ret){
+			System.out.println(b);
+		}
+	}
+	
+	@Test
+	public void testGetTopSellProduct(){
+		int typeid = 5;
+		List<ProductInfo> ret = productService.getTopSellProduct(typeid, 10);
+		for(ProductInfo b:ret){
+			System.out.println(b);
+		}
+	}
+	
+	@Test
+	public void testGetTopSellProductWithNull(){
+		List<ProductInfo> ret = productService.getTopSellProduct(null, 10);
+		for(ProductInfo b:ret){
+			System.out.println(b);
+		}
+	}
 }

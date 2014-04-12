@@ -22,7 +22,7 @@
 </script>
 </head>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form action="$path/brand/edit.do" method="post"  enctype="multipart/form-data" onsubmit="return checkfm(this)">
+<form action="$path/controller/brand/edit.do" method="post"  enctype="multipart/form-data" onsubmit="return checkfm(this)">
   <table width="90%" border="0" cellspacing="2" cellpadding="3" align="center">
    	<input type="hidden" name="code" value="$!{brand.code}"/>
     <br>

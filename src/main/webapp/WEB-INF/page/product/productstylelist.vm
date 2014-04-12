@@ -12,25 +12,58 @@
 		form.submit();
 	}
 
-    function querylink(){
-    	window.location="$path/producttype/queryUI.do"
-    }
+	function allselect(allobj,items){
+		var state = allobj.checked;
+		if(items.length>1){
+			for(var i = 0;i<items.length;i++){
+		    	if(!items[i].disabled)items[i].checked = state;
+			}
+		}else{
+ 				if(!items.disabled)items.checked = state;
+		}
+	}
+	
+	function toaction(uri){
+	    var form = document.forms[0];
+	    if(validatecheckbox(form.producttypeids)){
+	    	form.action=uri;
+	    	form.submit();
+		}else{
+ 			alert("请选择");
+		}
+	}
+	
+	function validatecheckbox(items){
+	    if(items.length>1){
+	    	for(var i = 0;i<items.length;i++){
+	    		if(items[i].checked) return true;
+	    	}
+	    }else{
+	    	if(items.checked) return true;
+	    }
+	    return false;
+	}
 </script>
 <script language=JavaScript src="$path/js/FoshanRen.js"></script>
 </head>
 
 <body bgcolor="#FFFFFF" text="#000000" marginwidth="0" marginheight="0">
-	<form action="$path/productstyle/list.do" method="get">
+	<form action="$path/controller/productstyle/list.do" method="get">
 	<input type="hidden" name="productid" value="$!{productid}"/>
  	<table width="98%" border="0" cellspacing="1" cellpadding="2" align="center">
 	    <tr>
-	      <td width="5%" nowrap bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">修改</font></div></td>
-	      <td width="20%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">名称</font></div></td>
+	      <td width="10%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">选择</div></td>
+	      <td width="10%" nowrap bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">修改</font></div></td>
+	      <td width="25%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">名称</font></div></td>
+	      <td width="15%" bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">是否在售</font></div></td>
 		  <td nowrap bgcolor="6f8ac4"> <div align="center"><font color="#FFFFFF">产品图片</font></div></td>
 	    </tr>
 	    
 	    #foreach($productstyle in $result)
 	    <tr> 
+	    	  <td bgcolor="f5f5f5">
+		      	  <div align="center"><input type="checkbox" name="producttypeids" value="${productstyle.id}"></div>
+		      </td>
 		      <td bgcolor="f5f5f5">
 			      <div align="center">
 			          <a href="$path/productstyle/editUI.do?id=$!{productstyle.id}&productid=$!{productid}">
@@ -41,6 +74,7 @@
 		      <td bgcolor="f5f5f5">
 		      	  <div align="center">${productstyle.name}</div>
 		      </td>
+		      <td bgcolor="f5f5f5"><div align="center">#if(${productstyle.visible})在售#else停售#end</div></td>
 		      <td bgcolor="f5f5f5" align="center"><img src="$path$productstyle.getFullImagePath()" width="100" height="50" border="0">
 		      </td>
 		 </tr>
@@ -48,13 +82,14 @@
 	      
 	      
 	      <tr>
-	       <td bgcolor="f5f5f5" colspan="7" align="center">
+	       <td bgcolor="f5f5f5" colspan="5" align="center">
 	        <table width="100%" border="0" cellspacing="1" cellpadding="3">
 	          <tr> 
-	            <td width="5%"></td>
-	            <td width="85%">
-	              <input name="AddDic" type="button" class="frm_btn" id="AddDic" onClick="javascript:window.location.href='$path/productstyle/addUI.do?productid=$!{productid}'" value="添加样式"/> &nbsp;&nbsp;
-				  <input name="query" type="button" class="frm_btn" id="query" onClick="javascript:querylink()" value=" 查 询 "/> &nbsp;&nbsp;
+	            <td width="10%"><input type="checkbox" name="all" onclick="javascript:allselect(this,this.form.producttypeids)">全选</td>
+	            <td width="90%">
+	              <input name="AddDic" type="button" class="frm_btn" id="AddDic" onClick="javascript:window.location.href='$path/controller/productstyle/addUI.do?productid=$!{productid}'" value="添加样式"/> &nbsp;&nbsp;
+				  <input type="button" class="frm_btn" onClick="javascript:toaction('$path/controller/productstyle/visible.do')" value=" 上 架 "/> &nbsp;&nbsp;
+				  <input type="button" class="frm_btn" onClick="javascript:toaction('$path/controller/productstyle/disvisible.do')" value=" 下 架 "/> &nbsp;&nbsp;
 	            </td>
 	          </tr>
 	        </table>

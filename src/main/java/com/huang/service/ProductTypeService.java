@@ -22,7 +22,7 @@ public interface ProductTypeService {
 	
 	public List<ProductType> find(int pageSize,int pageOffset,String order,String sort,String parentid);
 	
-	public List<ProductType> findwithparent(int pageSize,int pageOffset,String parentid);
+	public List<ProductType> findwithparent(Integer pageSize,Integer pageOffset,String parentid);
 	
 	public int countByName(String name);
 	
@@ -34,8 +34,24 @@ public interface ProductTypeService {
 	
 	public void update(ProductType product);
 	
-	public List<ProductType> findwithChild(int pageSize,int pageOffset,String parentid);
+	public List<ProductType> findwithChild(Integer pageSize,Integer pageOffset,String parentid);
 	
 	public ProductType getParentByChildId(int childTypeId);
+	
+	public List<Integer> getSubTypeids(List<Integer> typeids);
+
+	/**
+	 * 
+	 * @param all 
+	 * @param typeids
+	 */
+	void getAllSubTypeids(List<Integer> all, List<Integer> typeids);
+
+	/** 首先根据传入的typeid获取其子类所有的typeid**/
+	List<Integer> getAllSubTypeids(Integer typeid);
+
+	List<ProductType> getParentTypes(int childTypeId);
+	
+	List<ProductType> getFirstSubTypes(Integer typeid);
 
 }

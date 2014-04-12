@@ -1,6 +1,8 @@
 package com.huang.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -37,6 +39,14 @@ public class ProductStyleDaoImpl implements ProductStyleDao{
 	@Override
 	public ProductStyle getById(int id) {
 		return (ProductStyle)dao.getSqlSession().selectOne("com.huang.mapper.ProductStyle.getById", id);
+	}
+
+	@Override
+	public void setVisibleStatus(int[] productstyleids, boolean status) {
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("productstyleids", productstyleids);
+		params.put("status", status);
+		dao.getSqlSession().update("com.huang.mapper.ProductStyle.setvisible", params);	
 	}
 	
 	

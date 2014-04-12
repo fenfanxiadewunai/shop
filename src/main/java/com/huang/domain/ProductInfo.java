@@ -1,9 +1,9 @@
 package com.huang.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import com.huang.vo.ProductVO;
 
@@ -48,7 +48,7 @@ public class ProductInfo implements Serializable{
 	/**  性别要求  **/
 	private Sex sexrequest = Sex.NONE;
 	/**  产品样式  **/
-	private Set<ProductStyle> styles = new HashSet<ProductStyle>();
+	private List<ProductStyle> styles = new ArrayList<ProductStyle>();
 	
 	public ProductInfo(){}
 	
@@ -81,12 +81,18 @@ public class ProductInfo implements Serializable{
 		}
 	}
 	
-	public Set<ProductStyle> getStyles() {
+	public List<ProductStyle> getStyles() {
 		return styles;
 	}
-	public void setStyles(Set<ProductStyle> styles) {
+
+	public void setStyles(List<ProductStyle> styles) {
 		this.styles = styles;
 	}
+
+	public int getStyleCount(){
+		return styles.size();
+	}
+	
 	public String getCode() {
 		return code;
 	}
@@ -245,6 +251,19 @@ public class ProductInfo implements Serializable{
 		this.setType(new ProductType(productVO.getTypeid()));
 	}
 	
+	public float savedPrice(){
+		return marketprice-sellprice;
+	}
 	
+	public ProductStyle getStyle() {
+		if(styles.size()>0) return styles.get(0);
+		return null;
+	}
+	
+	public String getSimpleDesc(){
+		if(description.length()>200)
+		return description.substring(0, 200);
+		else return description;
+	}
 
 }

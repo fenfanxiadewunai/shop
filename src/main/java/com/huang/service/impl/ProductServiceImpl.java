@@ -2,7 +2,6 @@ package com.huang.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -10,9 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.huang.dao.ProductDao;
 import com.huang.dao.ProductStyleDao;
+import com.huang.domain.Brand;
 import com.huang.domain.ProductInfo;
 import com.huang.domain.ProductStyle;
 import com.huang.service.ProductService;
+import com.huang.service.ProductTypeService;
 
 @Repository("productService")
 public class ProductServiceImpl implements ProductService{
@@ -22,10 +23,14 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Resource
 	private ProductDao productDao;
+	
+	@Resource
+	private ProductTypeService productTypeService; 
+	
 	@Override
 	public int add(ProductInfo product) {
 		int id = productDao.add(product);
-		Set<ProductStyle> pros = product.getStyles();
+		List<ProductStyle> pros = product.getStyles();
 		for(ProductStyle p: pros){
 			productStyleDao.add(p);
 		}
@@ -35,6 +40,16 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public ProductInfo getById(int id) {
 		return productDao.getById(id);
+	}
+	
+	@Override
+	public ProductInfo getByIdWithProductStyle(int id) {
+		ProductInfo product = productDao.getById(id);
+		List<ProductStyle> ps = productStyleDao.find(product.getId());
+		for(ProductStyle pp:ps){
+			product.addProductStyle(pp);
+		}
+		return product;
 	}
 
 	@Override
@@ -59,7 +74,14 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<ProductInfo> findByDynamic(HashMap<String, Object> map) {
-		return productDao.findByDynamic(map);
+		List<ProductInfo> ret = productDao.findByDynamic(map);
+		for(ProductInfo p:ret){
+			List<ProductStyle> ps = productStyleDao.find(p.getId());
+			for(ProductStyle pp:ps){
+				p.addProductStyle(pp);
+			}
+		}
+		return ret;
 	}
 
 	@Override
@@ -70,6 +92,50 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public void setCommendStatus(int[] productids, boolean status) {
 		productDao.setCommendStatus(productids, status);
+	}
+
+	@Override
+	public List<ProductInfo> findwithtypeids(List<Integer> typeids) {
+		return productDao.findwithtypeids(typeids);
+	}
+
+	@Override
+	public List<ProductInfo> findwithtypeids(List<Integer> typeids, int num) {
+		return productDao.findwithtypeids(typeids,num);
+	}
+	
+	@Override
+	public List<ProductInfo> getTopSellProduct(Integer typeid, int num) {
+		List<ProductInfo> ret = null;
+		if(typeid!=null){
+			List<Integer> typeids = productTypeService.getAllSubTypeids(typeid);
+			ret =  productDao.findwithtypeids(typeids,num);
+		}
+		else{
+			ret = productDao.findwithtypeids(null, num);
+		}
+		return ret;
+		
+	}
+	
+	@Override
+	public List<ProductInfo> getTopSellProduct(int num) {
+		return getTopSellProduct(null, num);
+		
+	}
+
+	@Override
+	public List<Brand> getBrandsByProductTypeId(Integer typeid) {
+		return productDao.getBrandsByProductTypeId(typeid);
+	}
+	@Override
+	public List<Brand> getBrandsByProductTypeIds(List<Integer> typeids) {
+		return productDao.getBrandsByProductTypeIds(typeids);
+	}
+
+	@Override
+	public List<ProductInfo> getListProductInfoByIds(List<Integer> ids, int num) {
+		return productDao.getListProductInfoByIds(ids, num);
 	}
 
 }

@@ -14,5 +14,7 @@ public interface ProductStyleDao {
 	public void update(ProductStyle productStyle);
 	
 	public ProductStyle getById(int id);
+	
+	public void setVisibleStatus(int[] productstyleids,boolean status);
 
 }

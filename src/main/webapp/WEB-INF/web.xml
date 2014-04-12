@@ -13,6 +13,12 @@
 		<filter-name>codeFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping> 
+	
+	<listener>
+		<listener-class>com.huang.filter.MySessionListener</listener-class>
+	</listener>
+	
+
 
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
@@ -27,4 +33,9 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	
+	<session-config>
+		<session-timeout>2</session-timeout>
+	</session-config>
 </web-app>

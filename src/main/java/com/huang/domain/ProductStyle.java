@@ -73,5 +73,9 @@ public class ProductStyle  implements Serializable{
 		return "/images/product/"+this.product.getType().getTypeid()+"/"+this.getProduct().getId()+"/prototype/"+this.getImagename();
 	}
 	
+	public String get140ImagePath(){
+		return "/images/product/"+this.product.getType().getTypeid()+"/"+this.getProduct().getId()+"/140/"+this.getImagename();
+	}
+	
 	
 }

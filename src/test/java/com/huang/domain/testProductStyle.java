@@ -62,6 +62,18 @@ public class testProductStyle {
 		
     }
 	
+	@Test
+    public void testBatchSetVisibleFalse() {
+		int[] productstyleids = new int[]{1,2};
+		productStyleService.setVisibleStatus(productstyleids, false);
+    }
+	
+	@Test
+    public void testBatchSetVisibleTure() {
+		int[] productstyleids = new int[]{1,2};
+		productStyleService.setVisibleStatus(productstyleids, true);
+    }
+	
 	
 	
 

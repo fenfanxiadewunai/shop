@@ -76,7 +76,9 @@
 		</choose>
 		GROUP BY t1.typeid
 		order by t1.typeid
-		limit #{pageOffset},#{pageSize}
+		<if test="pageOffset!=null">
+			limit #{pageOffset},#{pageSize}
+		</if>
 	</select>
 	
 	<select id="find" parameterType="map" resultType="com.huang.domain.ProductType">
@@ -92,7 +94,7 @@
 	</select>
 	
 	
-	
+	<!-- 根据parentid 获取其直接子类别的信息，该信息拥有父类信息的producttype -->
     <select id="findwithparent" parameterType="map" resultMap="pro">
         select p1.typeid as p1_typeid,p1.name as p1_name,p1.note as p1_note,
                p2.typeid as p2_typeid,p2.name as p2_name,p2.note as p2_note 
@@ -103,7 +105,9 @@
 			<otherwise> and p1.parentid is null</otherwise>
 		</choose> 
         order by p1.typeid desc
-		limit #{pageOffset},#{pageSize}
+		<if test="pageOffset!=null">
+			limit #{pageOffset},#{pageSize}
+		</if>
 	</select>
 	
 	
@@ -117,11 +121,28 @@
 		where typeid = #{typeid}
 	</delete>
 	
+	<!-- 根据child 的typeid 获取parent 的producttype -->
 	<select id="getParentByChildId" parameterType="int" resultType="com.huang.domain.ProductType">
 			select p2.typeid as typeid,p2.name as name,p2.note as note,p2.parentid as parentid 
                from producttype p1 left join producttype p2 on p1.parentid=p2.typeid
                where p1.typeid=#{childTypeId}
 	</select>
-
+	
+	<select id="getsubtypeid" parameterType="map" resultType="int">
+		select typeid from producttype where visible=1
+		and parentid in
+		<foreach item="item" index="index" collection="typeids" open="(" separator="," close=")">
+		   #{item}
+		</foreach> 
+	</select>
+	
+	<select id="getfirstsub" parameterType="map" resultType="com.huang.domain.ProductType">
+		select * from producttype where visible=1
+		<choose>
+			<when test="typeid!=null"> and parentid=#{typeid} </when>
+			<otherwise> and parentid is null</otherwise>
+		</choose> 
+	</select>
+	
 </mapper>
 

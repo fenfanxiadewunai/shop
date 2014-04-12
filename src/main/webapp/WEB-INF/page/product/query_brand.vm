@@ -22,7 +22,7 @@
 </script>
 </head>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form action="$path/brand/list.do" method="get"  onsubmit="return checkfm(this)">
+<form action="$path/controller/brand/list.do" method="get"  onsubmit="return checkfm(this)">
     <input type="hidden" name="query" value="true"/>
     <br>
   <table width="90%" border="0" cellspacing="2" cellpadding="3" align="center">

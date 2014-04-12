@@ -1,0 +1,3 @@
+#foreach($viewproduct in $viewHistory)
+<li class="bj_blue"><a href="" target="_blank" title="${viewproduct.name}">${viewproduct.name}</a></li>
+#end			

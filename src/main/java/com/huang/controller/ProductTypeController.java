@@ -14,7 +14,7 @@ import com.huang.util.PageUtil;
 import com.huang.util.Pagenation;
 
 @Controller
-@RequestMapping("/producttype")
+@RequestMapping("/controller/producttype")
 public class ProductTypeController {
 	
 	

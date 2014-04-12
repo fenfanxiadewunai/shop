@@ -28,7 +28,7 @@ EM {
 }
 
 .browse_left .browse .browse_t {
-	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(/images/global/bj_1.gif) repeat-x; PADDING-BOTTOM: 0px; WIDTH: 180px; PADDING-TOP: 5px; HEIGHT: 17px
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; BACKGROUND: url(http://localhost:8080/shop/images/global/bj_1.gif) repeat-x; PADDING-BOTTOM: 0px; WIDTH: 180px; PADDING-TOP: 5px; HEIGHT: 17px
 }
 .browse_left .browse H2 {
 	margin: 0px 0px 0 0px;PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-WEIGHT: normal; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; PADDING-TOP: 13px
@@ -39,15 +39,15 @@ EM {
 .browse_left .browse ul{margin: 0px 0px 0 0px;list-style-type:none; padding:5px 0 0 0;}
 .browse_left .browse ul li{ padding:5px 0 5px 20px; display:block;}
 .browse_left .browse ul li img{ width:108px; height:19px; margin:5px 0 0 7px;}
-.browse_left .browse ul .bj_blue{ background:url(/images/global/bj_blue.gif) no-repeat 10px 10px;}
-.browse_left .browse ul .bj_red{ background:url(/images/global/bj_red.gif) no-repeat 10px 10px;}
+.browse_left .browse ul .bj_blue{ background:url(http://localhost:8080/shop/images/global/bj_blue.gif) no-repeat 10px 10px;}
+.browse_left .browse ul .bj_red{ background:url(http://localhost:8080/shop/images/global/bj_red.gif) no-repeat 10px 10px;}
 .browse_left .browse ul .kk{ font-weight:bold; color:#ff7100;}
 
 .browse_right {
 	PADDING-LEFT: 15px; FLOAT: right; PADDING-BOTTOM: 30px; PADDING-TOP: 0px;margin-right: 10px;width:760px;
 }
 .browse_right .sorry_nopage {
-	PADDING-RIGHT: 0px; PADDING-LEFT: 280px; FONT-SIZE: 14px; BACKGROUND: url(/images/global/sorry.jpg) no-repeat 148px 62px; PADDING-BOTTOM: 0px; WIDTH: 390px; LINE-HEIGHT: 25px; PADDING-TOP: 90px; HEIGHT: 110px
+	PADDING-RIGHT: 0px; PADDING-LEFT: 280px; FONT-SIZE: 14px; BACKGROUND: url(http://localhost:8080/shop/images/global/sorry.jpg) no-repeat 148px 62px; PADDING-BOTTOM: 0px; WIDTH: 390px; LINE-HEIGHT: 25px; PADDING-TOP: 90px; HEIGHT: 110px
 }
 .browse_right .select_reorder {
 	PADDING-RIGHT: 15px; BORDER-TOP: #91aac2 1px solid; PADDING-LEFT: 15px;
@@ -95,7 +95,7 @@ EM {
 	font-size:14px;
 }
 .turnpage .ok {
-	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(/images/global/ok.gif) no-repeat; FLOAT: left; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 43px; CURSOR: hand; HEIGHT: 15px; BORDER-RIGHT-WIDTH: 0px
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: url(http://localhost:8080/shop/images/global/ok.gif) no-repeat; FLOAT: left; BORDER-BOTTOM-WIDTH: 0px; WIDTH: 43px; CURSOR: hand; HEIGHT: 15px; BORDER-RIGHT-WIDTH: 0px
 }
 .turnpage .red {
 	BACKGROUND: #ff7100; MARGIN: 0px 2px; WIDTH: 8px; COLOR: #fff; HEIGHT: 12px; TEXT-ALIGN: center
@@ -171,22 +171,22 @@ EM {
 	BORDER-RIGHT: #c9c9c9 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #c9c9c9 1px solid; PADDING-LEFT: 10px; PADDING-BOTTOM: 12px; BORDER-LEFT: #c9c9c9 1px solid; PADDING-TOP: 12px; BORDER-BOTTOM: #c9c9c9 1px solid; TEXT-ALIGN: left
 }
 .browse_right .table_goods .tabl_top1 {
-	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 30%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
+	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(http://localhost:8080/shop/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 30%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
 }
 .browse_right .table_goods .tabl_top2 {
-	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 25%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
+	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(http://localhost:8080/shop/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 25%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
 }
 .browse_right .table_goods .tabl_top3 {
-	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 20%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
+	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(http://localhost:8080/shop/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 20%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
 }
 .browse_right .table_goods .tabl_top4 {
-	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 13%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
+	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(http://localhost:8080/shop/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 13%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
 }
 .browse_right .table_goods .tabl_top5 {
-	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 7%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
+	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(http://localhost:8080/shop/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 7%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
 }
 .browse_right .table_goods .tabl_top6 {
-	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 5%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
+	BORDER-RIGHT: #7195b7 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #7195b7 1px solid; PADDING-LEFT: 10px; BACKGROUND: url(http://localhost:8080/shop/images/global/bj_top.gif) no-repeat left 50%; PADDING-BOTTOM: 5px; BORDER-LEFT: #7195b7 1px solid; WIDTH: 5%; PADDING-TOP: 5px; BORDER-BOTTOM: #7195b7 1px solid
 }
 .browse_right .table_goods .t {
 	FONT-WEIGHT: bold; COLOR: #ff7100; TEXT-ALIGN: right
@@ -216,7 +216,7 @@ EM {
 	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 30px; PADDING-TOP: 18px; BORDER-BOTTOM: #c9c9c9 1px solid
 }
 .browse_right .goods_pic .detail {
-	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 206px; PADDING-TOP: 0px; TEXT-ALIGN: center
+	PADDING-RIGHT: 20px; PADDING-LEFT: 20px; FLOAT: left; PADDING-BOTTOM: 10px; WIDTH: 206px; PADDING-TOP: 0px; TEXT-ALIGN: center
 }
 .browse_right .goods_pic .detail .goods {
 	PADDING-RIGHT: 0px; PADDING-LEFT: 0px;BORDER-RIGHT: #c9c9c9 0px solid; BORDER-TOP: #c9c9c9 0px solid; DISPLAY: block; BORDER-LEFT: #c9c9c9 0px solid; WIDTH: 140px; BORDER-BOTTOM: #c9c9c9 0px solid; HEIGHT: 168px; TEXT-ALIGN: center;
@@ -252,7 +252,7 @@ EM {
 	line-height:20px;
 	text-indent:18px;
 	margin-top: 5px;
-	background:transparent url(/images/global/icon_arrow_rb.gif) left top no-repeat;
+	background:transparent url(http://localhost:8080/shop/images/global/icon_arrow_rb.gif) left top no-repeat;
 }
 
 .browse_right .SubCategoryBox ul.CategoryListTableLevel1{
@@ -285,7 +285,7 @@ EM {
 	line-height:20px;
 	text-indent:18px;
 	margin-top: 5px;
-	background:transparent url(/images/global/icon_arrow_rb.gif) left top no-repeat;
+	background:transparent url(http://localhost:8080/shop/images/global/icon_arrow_rb.gif) left top no-repeat;
 }
 .browse_right .brand ul.CategoryListTableLevel1{
 	position:relative;

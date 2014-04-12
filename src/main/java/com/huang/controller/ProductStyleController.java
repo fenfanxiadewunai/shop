@@ -19,11 +19,12 @@ import com.huang.domain.ProductInfo;
 import com.huang.domain.ProductStyle;
 import com.huang.service.ProductService;
 import com.huang.service.ProductStyleService;
+import com.huang.util.ImageZipUtil;
 import com.huang.vo.ProductVO;
 
 
 @Controller
-@RequestMapping("/productstyle")
+@RequestMapping("/controller/productstyle")
 public class ProductStyleController {
 
 	@Resource
@@ -78,20 +79,11 @@ public class ProductStyleController {
 			ProductStyle ps = new ProductStyle(pvo.getName(), filename);
 			ps.setProduct(product);
 			productStyleService.add(ps);
-			byte[] bfile = cfile.getBytes();
-			String pathdir = "/images/product/" +product.getType().getTypeid()+"/"+pvo.getProductid()+"/prototype";
-			String realpathdir = request.getSession().getServletContext()
-					.getRealPath(pathdir);
-			File savedir = new File(realpathdir);
-			if (!savedir.exists())
-				savedir.mkdirs();
-			OutputStream out = new FileOutputStream(new File(realpathdir,
-					filename));
-			out.write(bfile);
-			out.flush();
-			out.close();
+			
+			saveImageFile(cfile.getBytes(),request,product.getType().getTypeid(),product.getId(),filename);
+			
 			model.addAttribute("message", "产品样式添加成功");
-			model.addAttribute("callback", "http://localhost:8080/shop/productstyle/list.do?productid="+product.getId());
+			model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+product.getId());
 			return "page/share/message";
 		}
 		return "page/product/add_productstyle";
@@ -117,22 +109,55 @@ public class ProductStyleController {
 			String filename = UUID.randomUUID().toString() +"." +suffix;
 			ps.setImagename(filename);
 			ps.setProduct(product);
-			byte[] bfile = cfile.getBytes();
-			String pathdir = "/images/product/" +product.getType().getTypeid()+"/"+pvo.getProductid()+"/prototype";
-			String realpathdir = request.getSession().getServletContext()
-					.getRealPath(pathdir);
-			File savedir = new File(realpathdir);
-			if (!savedir.exists())
-				savedir.mkdirs();
-			OutputStream out = new FileOutputStream(new File(realpathdir,
-					filename));
-			out.write(bfile);
-			out.flush();
-			out.close();
+			saveImageFile(cfile.getBytes(),request,product.getType().getTypeid(),pvo.getProductid(),filename);
 		}
 		productStyleService.update(ps);
 		model.addAttribute("message", "产品样式修改成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/productstyle/list.do?productid="+product.getId());
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+product.getId());
 		return "page/share/message";
 	}
+	
+	
+	@RequestMapping("/visible.do")
+	public String toSetVisible(Model model,String productid,int[] producttypeids){
+		productStyleService.setVisibleStatus(producttypeids, true);
+		model.addAttribute("message", "设置成功");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+productid);
+		return "page/share/message";
+	}
+	
+	@RequestMapping("/disvisible.do")
+	public String toSetDisVisible(Model model,String productid,int[] producttypeids){
+		productStyleService.setVisibleStatus(producttypeids, false);
+		model.addAttribute("message", "设置成功");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+productid);
+		return "page/share/message";
+	}
+	
+	
+	private static void saveImageFile(byte[] bfile,HttpServletRequest request,int typeid,int productid,String filename) throws Exception{
+		
+		String pathdir = "/images/product/" +typeid+"/"+productid+"/prototype";
+		String prorealpathdir = request.getSession().getServletContext()
+				.getRealPath(pathdir);
+		File savedir = new File(prorealpathdir);
+		if (!savedir.exists())
+			savedir.mkdirs();
+		File oldFile = new File(prorealpathdir,filename);
+		OutputStream out = new FileOutputStream(oldFile);
+		out.write(bfile);
+		out.flush();
+		out.close();
+		
+		String path140dir = "/images/product/" +typeid+"/"+productid+"/140";
+		String real140pathdir = request.getSession().getServletContext()
+				.getRealPath(path140dir);
+		File save140dir = new File(real140pathdir);
+		if (!save140dir.exists())
+			save140dir.mkdirs();
+		File newFile = new File(save140dir,filename);
+		
+		ImageZipUtil.zipImageFileWith140Width(oldFile,newFile);
+	}
+
 }

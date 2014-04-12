@@ -1,0 +1,175 @@
+#set($path="http://localhost:8080/shop")
+<html>
+<head>
+
+	<title>$!{product.name} 随心购</title>
+	<link href="$path/css/global/header01.css" rel="stylesheet" type="text/css">
+	<link href="$path/css/product/list.css" rel="stylesheet" type="text/css" />	
+	<link href="$path/css/product/product.css" rel="stylesheet" type="text/css">
+	<link href="$path/css/global/topsell.css" rel="stylesheet" type="text/css">
+	<link href="$path/css/global/topcommend.css" rel="stylesheet" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="Keywords" content="$!{product.name}">
+	<meta name="description" content="">
+	<script language=JavaScript src="$path/js/FoshanRen.js"></script>
+	<script language=JavaScript src="$path/js/xmlhttp.js"></script>
+	<script language=JavaScript src="$path/js/jquery-1.11.0.min.js"></script>
+
+  <script language="JavaScript">
+  
+  	function toType(s){
+			var form = document.forms[0];
+			form.typeid.value=s;
+			form.submit();
+	}
+  
+  
+	function styleEvent(styleid){
+		var productImage = document.getElementById('productImage_'+ styleid);
+		if(productImage){
+		    var main_image = document.getElementById("main_image");
+			main_image.style.background="url("+"$path"+productImage.value+") center center no-repeat";
+		}
+	}
+	
+	function bigImageBrowse(){
+		var form = document.forms["cart"];
+		var stypeid = form.styleid.value;
+		var productProImage = document.getElementById('productProImage_'+ stypeid);	
+		if(productProImage){
+			var path = "$path/productselect/viewimage.do?imagepath="+productProImage.value;			
+			window.open (path ,"显示图片");
+		}
+	}
+	
+	$(function(){
+			$("#mybody").ready(function(){
+				jQuery.ajax({
+					url:"http://localhost:8080/shop/productselect/viewhistory.do",
+					type:"post",
+					dataType:"text",
+					success:function(responseText){
+						$("#viewHistory").append(responseText);
+					},
+					error:function(){
+						alert("system error");
+					}
+				})
+			})
+			
+		})
+	
+	
+  </script>
+</head>
+
+<body id="mybody">
+
+	#parse("page/share/Head.vm")
+		
+	<div id="ContentBody"><!-- 页面主体 -->
+	
+		 <div id="position">您现在的位置:  <a href="javascript:toType('')">随心购</a>  
+	    				#if($menutypes)
+						   #foreach($m in $menutypes)
+						       >> <a href="javascript:toType(${m.typeid})">${m.name}</a>
+						   #end
+						#end
+						>> ${product.name}
+		</div>
+	
+	
+	
+		<div class="browse_left"><!-- 页面主体 左边 --> 
+		         <!-- 浏览过的商品 -->
+			 	  <div class="browse" align="center">
+		          		<div class="browse_t">您浏览过的商品</div>
+				  		<ul id="viewHistory"></ul>
+		    	  </div>
+				 <!--精品推荐 start -->
+				 <div id="topcommend" align="left">
+			       	<div id="newtop"><img height=13 src="$path/images/global/sy2.gif" width=192></div>
+			       	<div id="newlist">
+				  		<div id="newmore">
+				    		<div class="title">精品推荐</div>
+				  		</div>
+						<span id="commenddetail"></span>
+				 	</div>
+				 </div>
+		 </div><!-- 页面主体 左边end -->
+	
+		<div id="Right" ><!-- 页面主体 右边 -->
+			<form action="$path/cart/add.do" method="post" name="cart">
+			<input type="hidden" name="productid" value="${product.id}">
+			
+			#set($currentimage=$product.getStyle())
+			
+			<div id="browse_left">
+					<div class="right_left">
+						<div id="main_image" onclick="JavaScript:bigImageBrowse()" style="cursor:hand;background:url(#if($currentimage)$path$currentimage.get140ImagePath()#else$path/images/yf.jpg#end) center center no-repeat">
+						      <img src="$path/images/global/product_blank.gif" width="200" height="240"/>
+						 </div>
+						<img src="$path/images/global/zoom+.gif" onclick="JavaScript:bigImageBrowse()" style="cursor:hand;"/>
+					</div>
+								
+					<div class="right_right">									
+							<div class="right_title"><b>${product.name}</b></div>
+							<div class="right_desc">
+								<ul>
+									<li class="li2">商品编号：A${product.id}<font color="#CC0000">（电话订购专用）</font></li>
+									#if($product.brand)<li>品牌：${product.brand.name} </li>	#end	
+								</ul>																																</ul>
+							</div>
+							<div class="right_desc">
+							        #if($product.getStyleCount()==1)
+										<input type="hidden" name="styleid" value="${currentimage.id}">
+										<li>颜色：${currentimage.name}</li>
+										<input type="hidden" id="productImage_${currentimage.id}" value="${currentimage.get140ImagePath()}">
+										<input type="hidden" id="productProImage_${currentimage.id}" value="${currentimage.getFullImagePath()}">
+									#end
+									#if($product.getStyleCount()>1)
+										<img src="$path/images/global/init.gif" width="0" height="0">
+										<li>颜色:
+											<select name="styleid" onchange="javascript:styleEvent(this.value)">
+												#foreach($pstyle in $product.getStyles())
+											  		<option value="$pstyle.id" #if($pstyle.id==$currentimage.id) selected #end>${pstyle.name}</option>	
+											    #end
+											</select>
+										</li>
+										
+										#foreach($pstyle in $product.getStyles())
+										    <input type="hidden" id="productImage_${pstyle.id}" value="${pstyle.get140ImagePath()}">
+											<input type="hidden" id="productProImage_${pstyle.id}" value="${pstyle.getFullImagePath()}">
+									    #end
+									#end
+							 </div>
+							 <ul>
+								<li>市场价：<s>${product.marketprice}</s> 元 <font color='#ff6f02'>本站价：<b>${product.sellprice} 元</b></font> 节省：<font color='#ff6f02'>${product.savedPrice()}</font> 元</li>
+							  	<li class="right_img"><input type="image" src="$path/images/global/sale.gif"></li>
+								<li class="guopiprice">
+								    [ <img src="$path/images/global/2j4.gif" border="0">&nbsp;<a href="" target="_blank">配送说明</A> ]&nbsp;&nbsp;&nbsp;&nbsp;[ <img src="$path/images/global/2j4.gif" border="0">&nbsp;<a href="" target="_blank">付款方式</A> ]
+								</li>
+							 </ul>									
+				     </div>
+			</div>
+			<div id="browse_right">
+					<div id="sy_biankuang">
+						<div class="sy_xinpintuijian_font">欢迎光临</div>
+						<div class="sy_dianhua" style="line-height:150%"><font color="#FF0000">
+							咨询电话：18817350871</font><br>邮箱：357145481@qq.com<br>	
+							<font color="#3A8FAF">在线客服：357145481</font>
+						</div>
+					</div>
+			</div>
+			</form>
+			<div class='right_blank'></div>
+			<div class='right_title1'>商品说明</div>
+			<div class='right_content'>${product.description}</div>
+
+ 		</div><!-- 页面主体 右边 end -->
+	</div><!-- 页面主体 end -->
+		
+
+	#parse("page/share/Foot.vm")
+</body>
+</html>

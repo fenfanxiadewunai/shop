@@ -39,10 +39,10 @@ function getDicName(p_id,p_name){
 
 <body>
 >>产品类别列表,请选择分类:<br>
-导航：<a href="$path/product/selectUI.do">顶级目录</a>
+导航：<a href="$path/controller/product/selectUI.do">顶级目录</a>
 #if($menutypes)
    #foreach($m in $menutypes)
-       >><a href="$path/product/selectUI.do?typeid=${m.typeid}">${m.name}</a>
+       >><a href="$path/controller/product/selectUI.do?typeid=${m.typeid}">${m.name}</a>
    #end
 #end
 
@@ -58,7 +58,7 @@ function getDicName(p_id,p_name){
 		 #foreach($ptype in $result)
 			 <td>
 			    #if($ptype.child>0)
-			     <a href="$path/product/selectUI.do?typeid=${ptype.typeid}">${ptype.name}</a>    
+			     <a href="$path/controller/product/selectUI.do?typeid=${ptype.typeid}">${ptype.name}</a>    
 			    #else
 			     <input type="radio" name="type" value="${ptype.typeid}" onclick="javascript:getDicName('${ptype.typeid}','${ptype.name}')">${ptype.name}
 			    #end

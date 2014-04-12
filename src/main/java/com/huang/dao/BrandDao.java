@@ -22,5 +22,7 @@ public interface BrandDao {
 	public int countByName(String name);
 	
 	public void update(Brand brand);
+	
+	
 
 }

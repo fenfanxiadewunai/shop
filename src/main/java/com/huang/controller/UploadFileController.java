@@ -25,7 +25,7 @@ import com.huang.util.PageUtil;
 import com.huang.util.Pagenation;
 
 @Controller
-@RequestMapping("/upload")
+@RequestMapping("/controller/upload")
 public class UploadFileController {
 	
 	@Resource
@@ -96,7 +96,7 @@ public class UploadFileController {
 			model.addAttribute("message", "请上传文件");
 		}
 		
-		model.addAttribute("callback", "http://localhost:8080/shop/upload/list.do");
+		model.addAttribute("callback", "http://localhost:8080/shop/controller/upload/list.do");
 		return "page/uploadfile/fileuploadfinish";
 	}
 	

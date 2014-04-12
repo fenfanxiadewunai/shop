@@ -14,5 +14,7 @@ public interface ProductStyleService {
 	public void update(ProductStyle productStyle);
 	
 	public List<ProductStyle> find(int productid);
+	
+	public void setVisibleStatus(int[] productstyleids,boolean status);
 
 }

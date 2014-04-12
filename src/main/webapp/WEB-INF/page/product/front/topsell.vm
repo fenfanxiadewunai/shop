@@ -1,0 +1,5 @@
+<ul>
+	#foreach($topsellproduct in $topresult)
+	<li class="bx">${topsellproduct.sellcount}<a href="" target="_blank" >${topsellproduct.name}</a></li>
+	#end			
+</ul>

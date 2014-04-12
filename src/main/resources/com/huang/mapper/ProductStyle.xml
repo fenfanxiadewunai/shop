@@ -29,8 +29,15 @@
 	
 	
 	<select id="find" parameterType="int" resultMap="prostyle">
-		select * from productstyle where productid = #{productid}
+		select * from productstyle where productid = #{productid} order by visible desc
 	</select>
+	
+	<update id="setvisible" parameterType="map">
+	    update productstyle set visible=#{status} where id in
+		<foreach item="productstyleid" index="index" collection="productstyleids" open="(" separator="," close=")">
+		   #{productstyleid}
+		</foreach>
+	</update>
 	
 
 </mapper>

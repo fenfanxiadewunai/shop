@@ -25,7 +25,7 @@
 </script>
 </head>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form action="$path/productstyle/edit.do" method="post" enctype="multipart/form-data"  onsubmit="return checkfm(this)">
+<form action="$path/controller/productstyle/edit.do" method="post" enctype="multipart/form-data"  onsubmit="return checkfm(this)">
     <input type="hidden" name="id" value="$!{result.id}"/>
     <input type="hidden" name="productid" value="$!{result.product.id}"/>
     <br>

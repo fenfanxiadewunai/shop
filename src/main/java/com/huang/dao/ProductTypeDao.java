@@ -24,10 +24,10 @@ public interface ProductTypeDao {
 	public List<ProductType> find(int pageSize,int pageOffset,String order,String sort,String parentid);
 	
 	
-	public List<ProductType> findwithparent(int pageSize,int pageOffset,String parentid);
+	public List<ProductType> findwithparent(Integer pageSize,Integer pageOffset,String parentid);
 	
 	
-	public List<ProductType> findwithChild(int pageSize,int pageOffset,String parentid);
+	public List<ProductType> findwithChild(Integer pageSize,Integer pageOffset,String parentid);
 	
 	
 	public int countByName(String name);
@@ -41,4 +41,8 @@ public interface ProductTypeDao {
 	public void update(ProductType product);
 	
 	public ProductType getParentByChildId(int childTypeId);
+	
+	public List<Integer> getSubTypeids(List<Integer> typeids);
+	
+	List<ProductType> getFirstSubTypes(Integer typeid);
 }
