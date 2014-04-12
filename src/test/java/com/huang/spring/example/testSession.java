@@ -11,6 +11,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * 资源可以主动绑定到TransactionSynchronizationManager中。
  *
  */
+@SuppressWarnings("resource")
 public class testSession {
 	
 	@Resource 
@@ -18,7 +19,6 @@ public class testSession {
 	
 	@Test
     public void testSave() {
-		
 		ApplicationContext ac = new FileSystemXmlApplicationContext("file:src/test/resources/spring.xml");  
         
         HelloDao helloDao = (HelloDao) ac.getBean("helloDao");  
