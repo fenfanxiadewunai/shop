@@ -1,17 +1,17 @@
 package com.huang.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.huang.domain.BuyCart;
 import com.huang.domain.BuyItem;
 import com.huang.domain.ProductInfo;
 import com.huang.domain.ProductStyle;
-import com.huang.domain.User;
 import com.huang.service.ProductService;
 import com.huang.vo.CartVO;
 
@@ -47,24 +47,54 @@ public class CartController {
 		}
 		model.addAttribute("cart", buycart);
 		return "page/shopping/cart";
-		
 	}
 	
-	@RequestMapping("/hello1.do")
-	public String test(@ModelAttribute("cart")User user ){
-		System.out.println(user);
-		user.setUserName("zhang");
-		System.out.println(user);
-		return "page/test/out";
-	}
-	
-	@RequestMapping("/hello.do")
-	public String hello(HttpSession session){
-		if(session.getAttribute("cart")==null){
-			session.setAttribute("cart", new User("huang", 25));
+	@RequestMapping("/clear.do")
+	public String toClear(HttpSession session,Model model){
+		BuyCart buycart = (BuyCart)session.getAttribute("cart");
+		if(buycart!=null){
+			buycart.deleteAll();
 		}
-		return "page/test/out";
+		return "redirect:add.do";
 	}
+	
+	@RequestMapping("/delete.do")
+	public String toDelete(HttpSession session,CartVO cartvo,Model model){
+		BuyCart buycart = (BuyCart)session.getAttribute("cart");
+		if(buycart!=null){
+			buycart.deleteBuyItem(cartvo.getProductid(),cartvo.getStyleid());;
+		}else{
+			buycart = new BuyCart();
+			session.setAttribute("cart", buycart);
+		}
+		model.addAttribute("cart", buycart);
+		return "redirect:add.do";
+	}
+	
+	@RequestMapping("/update.do")
+	public String toUpdate(HttpServletRequest request,HttpSession session,Model model){
+		BuyCart buycart = (BuyCart)session.getAttribute("cart");
+		if(buycart!=null){
+			for(BuyItem item : buycart.getItems()){
+				StringBuffer key = new StringBuffer("amount_");
+				key.append(item.getProduct().getId()).append("_").append(item.getProduct().getStyle().getId());
+				String amountStr = request.getParameter(key.toString());
+				if(amountStr!=null&&!amountStr.equals("")){
+					try{
+						int amount = Integer.parseInt(amountStr);
+						if(amount>0) item.setAmount(amount);
+					}catch(RuntimeException e){}
+				}
+			}
+			
+		}else{
+			buycart = new BuyCart();
+			session.setAttribute("cart", buycart);
+		}
+		model.addAttribute("cart", buycart);
+		return "redirect:add.do";
+	}
+	
 	
 	
 }

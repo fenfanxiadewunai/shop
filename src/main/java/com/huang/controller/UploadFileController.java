@@ -96,7 +96,7 @@ public class UploadFileController {
 			model.addAttribute("message", "请上传文件");
 		}
 		
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/upload/list.do");
+		model.addAttribute("callback", "/controller/upload/list.do");
 		return "page/uploadfile/fileuploadfinish";
 	}
 	

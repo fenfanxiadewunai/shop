@@ -1,4 +1,3 @@
-#set($path="http://localhost:8080/shop")
 <html>
 <head>
 	<title>随心购</title>
@@ -9,7 +8,7 @@
 <body>
 	
 	<center>
-		<img src="$path$imagepath"/>
+		<img src="$imagepath"/>
 	</center>
 	
 </body>

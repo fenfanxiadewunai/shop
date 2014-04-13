@@ -8,5 +8,7 @@
 		<mapper resource="com/huang/mapper/UploadFile.xml"/>
 		<mapper resource="com/huang/mapper/Product.xml"/>
 		<mapper resource="com/huang/mapper/ProductStyle.xml"/>
+		<mapper resource="com/huang/mapper/ContactInfo.xml"/>
+		<mapper resource="com/huang/mapper/Buyer.xml"/>
 	</mappers>
 </configuration>

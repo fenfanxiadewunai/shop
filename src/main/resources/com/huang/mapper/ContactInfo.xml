@@ -1,0 +1,22 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.ContactInfo">
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="contactid"
+		parameterType="com.huang.domain.user.ContactInfo">
+		INSERT INTO contactinfo
+		(address,mobile,phone,postcode)
+		values
+		(#{address},#{mobile},#{phone},#{postcode})
+	</insert>
+
+	<select id="getById" parameterType="int" resultType="com.huang.domain.user.ContactInfo">
+		select * from contactinfo where contactid = #{contactid}
+	</select>
+	
+	<update id="update" parameterType="com.huang.domain.user.ContactInfo">
+		update contactinfo set address=#{address},mobile=#{mobile},phone=#{phone},postcode=#{postcode} where contactid = #{contactid}
+	</update>
+	
+</mapper>
+

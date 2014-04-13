@@ -88,7 +88,7 @@ public class BrandController {
 		}
 		brandService.add(brand);
 		model.addAttribute("message", "品牌添加成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/brand/list.do");
+		model.addAttribute("callback", "/controller/brand/list.do");
 		return "page/share/message";
 	}
 
@@ -131,7 +131,7 @@ public class BrandController {
 		}
 		brandService.update(brand);
 		model.addAttribute("message", "品牌修改成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/brand/list.do");
+		model.addAttribute("callback", "/controller/brand/list.do");
 		return "page/share/message";
 	}
 

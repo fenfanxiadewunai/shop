@@ -1,10 +1,9 @@
-#set($path="http://localhost:8080/shop")
 <html>
 <head>
 <title>修改产品样式</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="$path/css/vip.css" type="text/css">
-<SCRIPT language=JavaScript src="$path/js/FoshanRen.js"></SCRIPT>
+<link rel="stylesheet" href="/css/vip.css" type="text/css">
+<SCRIPT language=JavaScript src="/js/FoshanRen.js"></SCRIPT>
 <script language="JavaScript">
 	function checkfm(form){
 		var logofile = form.logofile.value;
@@ -25,7 +24,7 @@
 </script>
 </head>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form action="$path/controller/productstyle/edit.do" method="post" enctype="multipart/form-data"  onsubmit="return checkfm(this)">
+<form action="/controller/productstyle/edit.do" method="post" enctype="multipart/form-data"  onsubmit="return checkfm(this)">
     <input type="hidden" name="id" value="$!{result.id}"/>
     <input type="hidden" name="productid" value="$!{result.product.id}"/>
     <br>
@@ -49,7 +48,7 @@
     <tr bgcolor="f5f5f5"> 
       <td width="22%"><div align="right">原图片：</div></td>
       <td width="78%"> 
-         <img src="$path$result.getFullImagePath()" width="100" height="50" border="0">
+         <img src="$result.getFullImagePath()" width="100" height="50" border="0">
       </td>
     </tr>
     <tr bgcolor="f5f5f5"> 

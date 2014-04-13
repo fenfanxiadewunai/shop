@@ -1,15 +1,14 @@
-#set($path="http://localhost:8080/shop")
 <html>
 <head>
 	<title>$!{producttype.name} 随心购</title>
-	<link href="$path/css/global/header01.css" rel="stylesheet" type="text/css">
-	<link href="$path/css/product/list.css" rel="stylesheet" type="text/css" />	
-	<link href="$path/css/global/topsell.css" rel="stylesheet" type="text/css">
+	<link href="/css/global/header01.css" rel="stylesheet" type="text/css">
+	<link href="/css/product/list.css" rel="stylesheet" type="text/css" />	
+	<link href="/css/global/topsell.css" rel="stylesheet" type="text/css">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="Keywords" content="$!{producttype.name}">
 	<meta name="description" content="$!{producttype.note}">
-	<script language=JavaScript src="$path/js/xmlhttp.js"></script>
-	<script language=JavaScript src="$path/js/jquery-1.11.0.min.js"></script>
+	<script language=JavaScript src="/js/xmlhttp.js"></script>
+	<script language=JavaScript src="/js/jquery-1.11.0.min.js"></script>
 	<script language="javascript">
 	
 		function toPage(p){
@@ -94,7 +93,7 @@
 
 
 <body class="ProducTypeHome2" id="mybody">
-	<form action="$path/product/list.do" method="get">
+	<form action="/product/list.do" method="get">
 		<input type="hidden" name="currentpage"/>
 		<input type="hidden" name="sex" value="$!{pvo.sex}"/>
 		<input type="hidden" name="sort" value="$!{pvo.sort}"/>
@@ -194,13 +193,13 @@
 			     
 			     #foreach($productinfo in $result)
 			    		<div class="goodslist">
-          					<div class="goods" style="cursor:hand;background:url(#if($productinfo.getStyle())$path$productinfo.getStyle().get140ImagePath()#else$path/images/yf.jpg#end) center center no-repeat">
-          					    <a href="$path/viewproduct/product.do?productid=${productinfo.id}" target="_blank">
-					            	<img src="$path/images/global/product_blank.gif" alt="${productinfo.name}" width="140" height="168"  border="0"/>
+          					<div class="goods" style="cursor:hand;background:url(#if($productinfo.getStyle())$productinfo.getStyle().get140ImagePath()#else/images/yf.jpg#end) center center no-repeat">
+          					    <a href="/viewproduct/product.do?productid=${productinfo.id}" target="_blank">
+					            	<img src="/images/global/product_blank.gif" alt="${productinfo.name}" width="140" height="168"  border="0"/>
 					           </a>
             				</div>
           					<div class="goods_right">
-                				<h2><a href="$path/viewproduct/product.do?productid=${productinfo.id}" target="_blank" title="${productinfo.name}">${productinfo.name}</a></h2>
+                				<h2><a href="/viewproduct/product.do?productid=${productinfo.id}" target="_blank" title="${productinfo.name}">${productinfo.name}</a></h2>
 		           				<div class="message">
 		           					<ul>
 			           				    #if($productinfo.brand)
@@ -211,7 +210,7 @@
 		           				<div class="content">&nbsp;&nbsp;&nbsp;${productinfo.getSimpleDesc()}</div>
 		           				<div class="message_bottom">
 		                			<div class="save"><s>￥${productinfo.marketprice}</s>　<strong><em>￥${productinfo.sellprice}</em></strong>　节省：${productinfo.savedPrice()}</div>
-				        			<div class="buy"><a href=""><img src='$path/images/sale.gif' width='84' height='24' border='0' /></a></div>
+				        			<div class="buy"><a href=""><img src='/images/sale.gif' width='84' height='24' border='0' /></a></div>
 		          				 </div>
 		          			 </div>
           				 	 <div class="empty_box"></div>

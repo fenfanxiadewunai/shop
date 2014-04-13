@@ -52,6 +52,10 @@ public class ProductInfo implements Serializable{
 	
 	public ProductInfo(){}
 	
+	public ProductInfo(Integer id){
+		this.id = id;
+	}
+	
 	public ProductInfo(ProductVO productVO){
 		this.setName(productVO.getName());
 		this.setBaseprice(productVO.getBaseprice());

@@ -32,6 +32,13 @@ public class BuyCart {
 		if(this.items.contains(item))
 			this.items.remove(item);
 	}
+	
+	public void deleteBuyItem(Integer productid,Integer styleid){
+		ProductInfo product = new ProductInfo(productid);
+		ProductStyle ps = new ProductStyle(styleid);
+		product.addProductStyle(ps);
+		deleteBuyItem(new BuyItem(product));
+	}
 
 	public void deleteAll(){
 		items.clear();
@@ -52,5 +59,8 @@ public class BuyCart {
 		}
 		return result - getTotalSellPrice();
 	}
+
+	
+	
 	
 }

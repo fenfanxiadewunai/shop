@@ -1,4 +1,3 @@
-#set($path="http://localhost:8080/shop")
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,12 +35,12 @@ function turnit(id) {
 	if (menu.style.display=="none"){
 		HideAll();
 		menu.style.display = "";
-		if(imgId) imgId.src="$path/images/midopenedfolder.gif";
-		if(imgId2) imgId2.src="$path/images/openfld.gif";
+		if(imgId) imgId.src="/images/midopenedfolder.gif";
+		if(imgId2) imgId2.src="/images/openfld.gif";
 	}else{
 		menu.style.display = "none";
-		if(imgId) imgId.src="$path/images/midclosedfolder.gif";
-		if(imgId2) imgId2.src="$path/images/clsfld.gif";
+		if(imgId) imgId.src="/images/midclosedfolder.gif";
+		if(imgId2) imgId2.src="/images/clsfld.gif";
 	}
 }
 </Script>
@@ -58,8 +57,8 @@ a:visited {  color:#FF6600; text-decoration: none}
 <table border=0 width="98%" align="center" cellspacing="0" cellpadding="0">
   <tr> 
     <td colspan="3" language="JavaScript" onMouseUp="turnit('Product')" style="CURSOR: hand"> 
-      <img id="ImgProduct" src="$path/images/midclosedfolder.gif" align="absMiddle" border="0" width="16">
-      <img name="ImgProduct_0" src="$path/images/clsfld.gif" align="absMiddle" border="0"> 
+      <img id="ImgProduct" src="/images/midclosedfolder.gif" align="absMiddle" border="0" width="16">
+      <img name="ImgProduct_0" src="/images/clsfld.gif" align="absMiddle" border="0"> 
       <font face=宋体><b>产品管理</b></font> 
     </td>
   </tr>
@@ -67,31 +66,31 @@ a:visited {  color:#FF6600; text-decoration: none}
 <table id="menu_Product" border=0 width="98%" align="center" cellspacing="0" cellpadding="0" style="display:none">
   <tr> 
     <td width="50">
-        <img src="$path/images/vertline.gif" border=0>
-        <img src="$path/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
-        <img src="$path/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
     </td>
     <td width="123"> 
-        <a href="$path/controller/producttype/list.do">产品类别管理</a> 
+        <a href="/controller/producttype/list.do">产品类别管理</a> 
     </td>
   </tr>
   <tr> 
     <td width="50">
-        <img src="$path/images/vertline.gif" border=0>
-        <img src="$path/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
-        <img src="$path/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
     </td>
     <td width="123"> 
-        <a href="$path/controller/brand/list.do">产品品牌管理</a> 
+        <a href="/controller/brand/list.do">产品品牌管理</a> 
     </td>
   </tr>
   <td width="50">
-        <img src="$path/images/vertline.gif" border=0>
-        <img src="$path/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
-        <img src="$path/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
     </td>
     <td width="123"> 
-        <a href="$path/controller/product/list.do">产品管理</a> 
+        <a href="/controller/product/list.do">产品管理</a> 
     </td>
   </tr>
 </table>
@@ -100,8 +99,8 @@ a:visited {  color:#FF6600; text-decoration: none}
 <table border=0 width="98%" align="center" cellspacing="0" cellpadding="0">
   <tr> 
     <td colspan="3" language="JavaScript" onMouseUp="turnit('file')" style="CURSOR: hand"> 
-      <img id="Imgfile" src="$path/images/midclosedfolder.gif" align="absMiddle" border="0" width="16">
-      <img name="Imgfile_0" src="$path/images/clsfld.gif" align="absMiddle" border="0"> 
+      <img id="Imgfile" src="/images/midclosedfolder.gif" align="absMiddle" border="0" width="16">
+      <img name="Imgfile_0" src="/images/clsfld.gif" align="absMiddle" border="0"> 
       <font face=宋体><b>文件管理</b></font> 
     </td>
   </tr>
@@ -109,21 +108,44 @@ a:visited {  color:#FF6600; text-decoration: none}
 <table id="menu_file" border=0 width="98%" align="center" cellspacing="0" cellpadding="0" style="display:none">
   <tr> 
     <td width="50">
-        <img src="$path/images/vertline.gif" border=0>
-        <img src="$path/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
-        <img src="$path/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
     </td>
     <td width="123"> 
-        <a href="$path/controller/upload/list.do">上传文件管理</a> 
+        <a href="/controller/upload/list.do">上传文件管理</a> 
+    </td>
+  </tr>
+</table>
+
+<!-------------------------用户管理START------------------------------->
+<table border=0 width="98%" align="center" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td colspan="3" language="JavaScript" onMouseUp="turnit('user')" style="CURSOR: hand"> 
+      <img id="Imguser" src="/images/midclosedfolder.gif" align="absMiddle" border="0" width="16">
+      <img name="Imguser_0" src="/images/clsfld.gif" align="absMiddle" border="0"> 
+      <font face=宋体><b>用户管理</b></font> 
+    </td>
+  </tr>
+</table>
+<table id="menu_user" border=0 width="98%" align="center" cellspacing="0" cellpadding="0" style="display:none">
+  <tr> 
+    <td width="50">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+    </td>
+    <td width="123"> 
+        <a href="/controller/user/list.do">网站用户管理</a> 
     </td>
   </tr>
 </table>
 
 <table border=0 width="98%" align="center" cellspacing="0" cellpadding="0">
   <tr> 
-    <td width="20"><img src="$path/images/lastnodeline.gif" border="0"></td>
+    <td width="20"><img src="/images/lastnodeline.gif" border="0"></td>
     <td>
-      <a href="$path/hello/sayHi.do" target="_parent">退出系统</a>
+      <a href="/hello/sayHi.do" target="_parent">退出系统</a>
     </td>
   </tr> 
 </table>

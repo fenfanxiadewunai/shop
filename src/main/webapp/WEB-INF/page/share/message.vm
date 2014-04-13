@@ -1,6 +1,5 @@
-#set($path="http://localhost:8080/shop")
 <html>
-<link rel="stylesheet" href="$path/css/vip.css" type="text/css">
+<link rel="stylesheet" href="/css/vip.css" type="text/css">
 <body>
 <div align="center">
 <table>

@@ -152,7 +152,7 @@ public class ProductController {
 			saveImageFile(cfile.getBytes(),request,product.getType().getTypeid(),productid,filename);
 			
 			model.addAttribute("message", "产品添加成功");
-			model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
+			model.addAttribute("callback", "/controller/product/list.do");
 			return "page/share/message";
 		}
 		return "page/product/add_product";
@@ -174,7 +174,7 @@ public class ProductController {
 		product.setProductVO(pvo);
 		productService.update(product);
 		model.addAttribute("message", "产品修改成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
+		model.addAttribute("callback", "/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -182,7 +182,7 @@ public class ProductController {
 	public String toSetVisible(Model model,int[] productids){
 		productService.setVisibleStatus(productids, true);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
+		model.addAttribute("callback", "/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -190,7 +190,7 @@ public class ProductController {
 	public String toSetDisVisible(Model model,int[] productids){
 		productService.setVisibleStatus(productids, false);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
+		model.addAttribute("callback", "/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -198,7 +198,7 @@ public class ProductController {
 	public String toSetCommend(Model model,int[] productids){
 		productService.setCommendStatus(productids, true);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
+		model.addAttribute("callback", "/controller/product/list.do");
 		return "page/share/message";
 	}
 	
@@ -206,7 +206,7 @@ public class ProductController {
 	public String toSetDisCommend(Model model,int[] productids){
 		productService.setCommendStatus(productids, false);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/product/list.do");
+		model.addAttribute("callback", "/controller/product/list.do");
 		return "page/share/message";
 	}
 	

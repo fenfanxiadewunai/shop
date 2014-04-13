@@ -37,7 +37,7 @@ public class ViewProductInfoController {
 		
 		if(product==null){
 			model.addAttribute("message", "获取不到您需要浏览的产品");
-			model.addAttribute("callback", "http://localhost:8080/shop/list.do");
+			model.addAttribute("callback", "/list.do");
 			return "page/share/message";
 		}
 		

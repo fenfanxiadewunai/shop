@@ -1,10 +1,9 @@
-#set($path="http://localhost:8080/shop")
 <html>
 <head>
 <title>修改类别</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="$path/css/vip.css" type="text/css">
-<SCRIPT language=JavaScript src="$path/js/FoshanRen.js"></SCRIPT>
+<link rel="stylesheet" href="/css/vip.css" type="text/css">
+<SCRIPT language=JavaScript src="/js/FoshanRen.js"></SCRIPT>
 <script language="JavaScript">
 	function checkfm(form){
 		if (trim(form.name.value)==""){
@@ -22,7 +21,7 @@
 </script>
 </head>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form action="$path/controller/producttype/edit.do" method="get"  onsubmit="return checkfm(this)">
+<form action="/controller/producttype/edit.do" method="get"  onsubmit="return checkfm(this)">
     <input type="hidden" name="typeid" value="$!{product.typeid}"/>
     <br>
   <table width="90%" border="0" cellspacing="2" cellpadding="3" align="center">

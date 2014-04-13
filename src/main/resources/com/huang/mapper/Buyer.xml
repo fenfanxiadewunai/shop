@@ -1,0 +1,43 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.Buyer">
+
+
+	<insert id="add" parameterType="com.huang.domain.user.Buyer">
+		INSERT INTO buyer
+		(username,email,gender,password,realname,regTime,visible,contactid)
+		values
+		(#{username},#{email},#{gender},#{password},#{realname},#{regTime},#{visible},#{contactInfo.contactid})
+	</insert>
+
+	<select id="countByName" resultType="int">
+		select count(*) from
+		buyer where username = #{username}
+	</select>
+	
+	<select id="checkUser" resultType="int">
+		select count(*) from
+		buyer where username = #{username} and password=#{password}
+	</select>
+	
+	<select id="getByUserName" parameterType="String" resultType="com.huang.domain.user.Buyer">
+		select username,email,gender,realname,regTime,visible,contactid from buyer where username = #{username}
+	</select>
+	
+	<select id="find" parameterType="map" resultType="com.huang.domain.user.Buyer">
+		select username,email,gender,realname,regTime,visible,contactid from buyer order by regTime desc limit #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="countAll" resultType="int">
+		select count(*) from buyer
+	</select>
+	
+	<update id="setvisible" parameterType="map">
+	    update buyer set visible=#{status} where username in
+		<foreach item="username" index="index" collection="usernames" open="(" separator="," close=")">
+		   #{username}
+		</foreach>
+	</update>
+	
+</mapper>
+

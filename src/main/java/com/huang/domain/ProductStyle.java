@@ -15,8 +15,10 @@ public class ProductStyle  implements Serializable{
 		this.name = name;
 		this.imagename = imagename;
 	}
-	public ProductStyle(String name) {
-		this.name = name;
+	
+	
+	public ProductStyle(int id) {
+		this.id = id;
 	}
 	public int getId() {
 		return id;

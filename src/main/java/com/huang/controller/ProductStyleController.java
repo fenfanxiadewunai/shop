@@ -83,7 +83,7 @@ public class ProductStyleController {
 			saveImageFile(cfile.getBytes(),request,product.getType().getTypeid(),product.getId(),filename);
 			
 			model.addAttribute("message", "产品样式添加成功");
-			model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+product.getId());
+			model.addAttribute("callback", "/controller/productstyle/list.do?productid="+product.getId());
 			return "page/share/message";
 		}
 		return "page/product/add_productstyle";
@@ -113,7 +113,7 @@ public class ProductStyleController {
 		}
 		productStyleService.update(ps);
 		model.addAttribute("message", "产品样式修改成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+product.getId());
+		model.addAttribute("callback", "/controller/productstyle/list.do?productid="+product.getId());
 		return "page/share/message";
 	}
 	
@@ -122,7 +122,7 @@ public class ProductStyleController {
 	public String toSetVisible(Model model,String productid,int[] producttypeids){
 		productStyleService.setVisibleStatus(producttypeids, true);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+productid);
+		model.addAttribute("callback", "/controller/productstyle/list.do?productid="+productid);
 		return "page/share/message";
 	}
 	
@@ -130,7 +130,7 @@ public class ProductStyleController {
 	public String toSetDisVisible(Model model,String productid,int[] producttypeids){
 		productStyleService.setVisibleStatus(producttypeids, false);
 		model.addAttribute("message", "设置成功");
-		model.addAttribute("callback", "http://localhost:8080/shop/controller/productstyle/list.do?productid="+productid);
+		model.addAttribute("callback", "/controller/productstyle/list.do?productid="+productid);
 		return "page/share/message";
 	}
 	
