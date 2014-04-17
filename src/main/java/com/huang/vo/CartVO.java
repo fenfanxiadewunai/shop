@@ -6,7 +6,16 @@ public class CartVO {
 	
 	private String buyitemid;
 	
+	private String directUrl;
 	
+	
+	
+	public String getDirectUrl() {
+		return directUrl;
+	}
+	public void setDirectUrl(String directUrl) {
+		this.directUrl = directUrl;
+	}
 	public Integer getProductid() {
 		return productid;
 	}

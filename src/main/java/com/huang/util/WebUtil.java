@@ -8,7 +8,30 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.huang.domain.BuyCart;
+import com.huang.domain.user.Buyer;
+
 public class WebUtil {
+	
+	public static Buyer getBuyer(HttpServletRequest request){
+		return (Buyer) request.getSession().getAttribute("user");
+	}
+	
+	public static BuyCart getBuyCart(HttpServletRequest request){
+		return (BuyCart) request.getSession().getAttribute("cart");
+	}
+	
+	public static String getRequestURI(HttpServletRequest request){     
+        return request.getRequestURI();
+    }
+    /**
+     * 获取完整请求路径(含内容路径及请求参数)
+     * @param request
+     * @return
+     */
+    public static String getRequestURIWithParam(HttpServletRequest request){     
+        return getRequestURI(request) + (request.getQueryString() == null ? "" : "?"+ request.getQueryString());
+    }
 	
     /**
      * 添加cookie

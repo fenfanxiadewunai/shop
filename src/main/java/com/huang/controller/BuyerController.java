@@ -28,7 +28,9 @@ public class BuyerController {
 			Buyer buy = new Buyer(uvo);
 			buyerService.add(buy);
 			model.addAttribute("message", "用户注册成功");
-			model.addAttribute("callback", "/product/list.do");
+			String url = "/product/list.do";
+			if(uvo.getDirectUrl()!=null)url = uvo.getDirectUrl();
+			model.addAttribute("callback", url);
 			return "page/share/message";
 		}
 		
@@ -39,9 +41,9 @@ public class BuyerController {
 		if(checkUserNameAndPassword(uvo.getUsername(),uvo.getPassword())){
 			if(buyerService.checkUser(uvo.getUsername(), uvo.getPassword())){
 				session.setAttribute("user", buyerService.get(uvo.getUsername()));
-				model.addAttribute("message", "用户登录成功");
-				model.addAttribute("callback", "/product/list.do");
-				return "page/share/message";
+				String url = "/customer/shopping/deliverinfoUI.do";
+				if(uvo.getDirectUrl()!=null&&!uvo.getDirectUrl().equals("")) url = uvo.getDirectUrl();
+				return "redirect:"+url;
 			}else{
 				model.addAttribute("error", "用户名或密码有误");
 				return "page/user/login";

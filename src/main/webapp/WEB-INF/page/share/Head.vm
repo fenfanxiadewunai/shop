@@ -3,9 +3,9 @@
 	    <div id="Logo"><a href="" target=_top><img alt=中国最大、最安全的户外用品、体育用品网上交易平台！ src="/images/global/logo.jpg" border=0 width="249" height="32"/></a> </div>
 	    <div id="HeadNavBar">
 	      <ul>
-	        <li class="NoSep"><a id="MyBuyCar"  href="" ><font color="blue"><Strong>购物车</Strong></font></a> </li>
-	        <li><a href="" >新用户注册</a> </li>
-	        <li><a href="" >用户登录</a> </li>
+	        <li class="NoSep"><a id="MyBuyCar"  href="/cart/add.do" ><font color="blue"><Strong>购物车</Strong></font></a> </li>
+	        <li><a href="/user/regUI.do" >新用户注册</a> </li>
+	        <li><a href="/user/loginUI.do" >用户登录</a> </li>
 	        <li><a href="">帮助中心</a> </li>
 	        <li class="phone">热线：18817350871</li>
 	      </ul>

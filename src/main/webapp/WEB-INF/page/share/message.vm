@@ -22,7 +22,7 @@
 				   <table width="273" border="0" cellpadding="0" cellspacing="10" bgcolor="#FFFFFF">
 					  <tr>
 						<td width="253" height="60" align="center" valign="bottom" class="font12">
-							<p>$message							
+							<p>$!message							
 							</p>
 						</td>
 					  </tr>

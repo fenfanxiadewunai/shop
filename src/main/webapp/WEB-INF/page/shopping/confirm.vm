@@ -1,0 +1,223 @@
+<HTML>
+<HEAD><TITLE>随心购：结算中心：订单确认</TITLE>
+<META http-equiv="pragma" content="no-cache">
+<META http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<META http-equiv="expires" content="Wed, 26 Feb 2006 08:21:57 GMT">
+<META http-equiv="Content-TYPE" content="text/html; charset=UTF-8">
+<link href="/css/global/orderconfirm.css" rel="stylesheet" type="text/css">
+<SCRIPT language=JavaScript src="/js/FoshanRen.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+// 表单验证
+function validateForm(){
+	var form = document.forms[0];
+	if(form.note.value.trim()!="" ){
+		if(byteLength(form.note.value)>200){
+			alert("\n附言必须在100字以内");
+			return false;
+		}
+	}
+	return true;
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+	<table cellSpacing=0 cellPadding=0 align=center border=0>
+	  <tbody>
+	  	<tr>
+	    	<td><IMG src="/images/global/logo.gif" >&nbsp;&nbsp;<IMG height=36 src="/images/buy/az-s-checkout-confirm-banne.gif" >
+	  		</td>
+	  	</tr>
+	  </tbody>
+	</table>
+	<br>
+
+	<form action="/customer/shopping/saveorder.do" method="post">
+		<table cellSpacing=0 cellPadding=0 width="90%" align=center border=0>
+  			<tbody>
+  				<tr>
+    				<td>
+      					<table cellSpacing=0 cellPadding=4 width="100%" border=0>
+        					<tbody>
+        						<tr>
+          							<td>
+            							<div align=left><SPAN class=h1><STRONG>请查看您的订单,点击“订单确认”后提交订单</STRONG></SPAN>
+            							<br>
+            							<br>
+            							<table cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+              								<tbody>
+              									<tr>
+                									<td vAlign=top width=7 bgColor=#3163ce height=30>
+                										<IMG height=17 src="/images/buy/az-s-top-left-blue-corner.gif" width=17>
+                									</td>
+               										<td bgColor=#3163ce Align=top>
+                  										<div align=center>
+                  											<IMG height=21 src="/images/buy/az-s-click-place-your-order.gif" width=420> 
+                  										</div>
+                  									</td>
+                									<td bgColor=#3163ce Align=right>
+                  										<div id=layer_finish1>
+                  											<input onClick="return validateForm()" type="image" height=37 alt=订单确认 width=116 src="/images/buy/az-s-place-order_01.gif" border=0> 
+                  										</div>
+                  									</td>
+                									<td vAlign=top width=7 bgColor=#3163ce>
+                										<IMG height=17 src="/images/buy/az-s-top-right-blue-corner.gif"  width=17>
+                									</td>
+                								</tr>
+                							</tbody>
+                						</table>
+            							<table cellSpacing=17 cellPadding=0 width="100%" align=center  bgColor=#F4F4EC border=0>
+              								<tbody>
+              									<tr>
+                									<td vAlign=top>
+                  										 <table cellSpacing=0 cellPadding=0 width="100%" border=0>
+										                    <tbody>
+											                    <tr>
+											                      	<td width=6><IMG height=20 src="/images/buy/az-s-spc-tl-inside-drksnd.gif" width=6></td>
+											                      	<td bgColor=#bbbb9e>
+											                        	<div class=font14 align=center><STRONG>配送详情</STRONG></div>
+											                      	</td>
+											                      	<td width=6><IMG height=20 src="/images/buy/az-s-spc-tr-inside-drksnd.gif" width=6></td>
+											                     </tr>
+										                     </tbody>
+										                  </table>
+										                  <table cellSpacing=0 cellPadding=3 width="100%" border=0>
+											                    <tbody>
+												                      <tr>
+												                        <td width=184 bgColor=#eeeeee>&nbsp;<STRONG>商品信息：</STRONG>
+												                        	<a href="/cart/add.do?directUrl=${directUrl}">
+												                        		<IMG height=17 src="/images/buy/az-s-change.gif" width=45 border=0>
+												                        	</a>
+												                        </td>
+												                        <td width="408" bgColor=#eeeeee></td>
+												                      </tr>
+											                    </tbody>
+										                  </table>
+                  										  <table cellSpacing=0 cellPadding=4 width="100%" bgColor=#ffffff border=0>
+											                    <tbody>
+											                      <tr>
+											                        <td>
+											                        	<table width="96%" border="0" align="right" cellpadding="5" cellspacing="0">
+													                          <tr>
+													                            <td height="1" colspan="3" bgcolor="#3163CE"></td>
+													                          </tr>
+																		      <!-- loop begin -->
+																			  #foreach($item in ${cart.items})
+																		      <tr>
+																		        <td width="68%" height="33">
+																					<STRONG><a href="" target="_blank">${item.product.name}</a></STRONG>
+																					<span class="h3color">[颜色/样式：${item.product.getStyle().name}]</span> 
+																				</td>
+																		        <td width="11%" align="center">数量：${item.amount}</td>
+																		        <td width="21%">单价：￥<span class="Price">${item.product.sellprice}元</SPAN></td>
+																		      </tr>
+																		      #end
+																			  <!-- loop end -->
+													                            <tr>
+													                              <td height="1" colspan="3" bgcolor="#CCCCCC"></td>
+													                            </tr>
+														                        <tr>
+														                            <td colspan="3" align="right">商品总价：￥${cart.getTotalSellPrice()}元&nbsp; 配送费：￥${cart.deliveFee}元&nbsp; <span >订单金额：￥${cart.orderTotalPrice()}元</span>
+																					</td>
+														                        </tr>
+													                            <tr>
+													                            	<td colspan="3" align="right">&nbsp;<strong><font color=#cc0000>应付金额：￥${cart.orderTotalPrice()}元</font></strong></td>
+													                            </tr>
+                        												  </table>
+                        											 </td>
+                      											  </tr>
+                    											</tbody>
+                  											</table>
+										                    <table cellSpacing=0 cellPadding=3 width="100%" border=0>
+											                    <tbody>
+												                    <tr>
+												                      <td width=80 bgColor=#eeeeee>&nbsp;<STRONG>送货地址：</STRONG></td>
+												                      <td bgColor=#eeeeee><a href="/customer/shopping/deliverinfoUI.do?directUrl=${directUrl}"><IMG height=17 src="/images/buy/az-s-change.gif" width=45 border=0></a></td>
+												                    </tr>
+															  	</tbody>
+														    </table>
+										                    <table cellSpacing=0 cellPadding=5 width="100%" border=0>
+											                    <tbody>
+												                    <tr>
+												                      <td bgColor=#ffffff>&nbsp;收货人姓名：${cart.deliverInfo.recipients}
+												                      	<br>&nbsp;地址：${cart.deliverInfo.address}
+																		<BR>&nbsp;邮编：${cart.deliverInfo.postcode}
+												                        <BR>&nbsp;电话：${cart.deliverInfo.tel} ${cart.deliverInfo.mobile}
+																	  </td>
+																	</tr>
+															   </tbody>
+														    </table>
+										                    <table cellSpacing=0 cellPadding=3 width="100%" border=0>
+											                    <tbody>
+												                    <tr>
+												                      <td width=150 bgColor=#eeeeee>&nbsp;<STRONG>送货与付款方式：</STRONG></td>
+												                      <td width="756" bgColor=#eeeeee>
+												                      	<a href="/customer/shopping/paymentwayUI.do?directUrl=${directUrl}">
+												                      		<img height=17 src="/images/buy/az-s-change.gif" width=45 border=0>
+												                      	</a>
+												                      </td>
+												                    </tr>
+											                   	</tbody>
+										                    </table>
+										                    <table cellSpacing=0 cellPadding=4 width="100%" bgColor=#ffffff border=0>
+											                    <tbody>
+												                    <tr>
+												                      <td>
+												                        <table width="60%">
+												                          <tbody>
+													                          <tr>
+														                            <td width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+														                            <td width="150">&nbsp;送货方式：${cart.deliverInfo.deliverWay.name}</td>
+														                            <td width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+														                            <td width="221">&nbsp;付款方式：${cart.paymentWay.name}</td>
+																			  </tr>
+													                          <tr>
+														                            <td>&nbsp;</td>
+														                            <td colspan="3">
+														                              &nbsp;时间要求：${cart.deliverInfo.requirement}
+														                            </td>
+													                           </tr>
+																			</tbody>
+																		</table>
+																	  </td>
+												                    </tr>
+															 	</tbody>
+														 	 </table>
+															   <!--  发票 --><!--  发票 -->
+										                     <table cellSpacing=0 cellPadding=3 width="100%" border=0>
+											                    <tbody>
+												                    <tr>
+												                      <td bgColor=#eeeeee>&nbsp;<STRONG>附言</STRONG> (填写您的一些要求,100字以内)：</td>
+												                    </tr>
+																	<tr>
+												                      <td><TEXTAREA NAME="note" ROWS="3" COLS="60"></TEXTAREA></td>
+												                    </tr>
+															    </tbody>
+														    </table>
+											            	<table cellSpacing=0 cellPadding=0 width="100%" align="center" bgColor="#4480dd" border=0>
+											              		<tbody>
+											              			<tr>
+											                			<td vAlign="bottom" width=7 height=30><IMG height=17 src="/images/buy/az-s-bottom-left-blue-corner.gif"  width=17></TD>
+											                			<td Align="right">
+											                  				<div id="layer_finish2">
+											                  					<input onClick="return validateForm()" type="image" height=37 alt="订单确认" width="116" src="/images/buy/az-s-place-order_02.gif" border=0> 
+											                  				</div>
+											                  			</td>
+											                			<td vAlign=bottom width=7>
+											                				<IMG height=17 src="/images/buy/az-s-bottom-right-blue-corner.gif" width=17>
+											                			</td>
+											                		</tr>
+											                	</tbody>
+											                </table>
+											            </div>
+											            </td>
+											          </tr>
+											        </tbody>
+											    </table>
+  									<div align=center></div>
+  								</td>
+  								</tr>
+  								</tbody>
+  								</table>
+					</form>
+</BODY>
+</HTML>

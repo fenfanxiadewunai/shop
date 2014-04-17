@@ -55,7 +55,7 @@
 	#end
 	
 	<form action="/user/login.do" method="post" onsubmit="javascript:return checkForm()">
- 		<input type="hidden" name="directUrl" value=""/>
+ 		<input type="hidden" name="directUrl" value="$!{directUrl}"/>
 		<table width="760" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>&nbsp;</td>

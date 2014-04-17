@@ -1,0 +1,299 @@
+<HTML>
+<HEAD>
+<META http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<META http-equiv="Content-TYPE" content="text/html; charset=UTF-8">
+<TITLE>结算中心：选择支付方式 随心购</TITLE>
+<SCRIPT language=JavaScript src="/js/FoshanRen.js"></SCRIPT>
+<link href="/css/global/paymentway.css" rel="stylesheet" type="text/css">
+<SCRIPT LANGUAGE="JavaScript">
+	// 表单验证
+	function validateForm(){
+		var form = document.forms[0];
+		if(""==getradiovalue(form.deliverway)){
+			alert("\n请选择 '送货方式'");
+			window.location="#deliverway";
+			return false;
+		}
+		if(""==getradiovalue(form.paymentway)){
+			alert("\n请选择 '支付方式'");
+			window.location="#paymentway";
+			return false;
+		}
+		return true;
+	}
+	function sendForm(){
+		var form = document.forms[0];
+		if(validateForm()) form.submit();
+	}
+/*
+ * 功能：取单选框的值
+ */
+	function getradiovalue(obj){
+		var result = "";
+		try{		
+			if (obj!=null){
+				result = obj.value;
+				if(typeof(result)=="undefined"){
+					result="";
+					for (i=0;i<obj.length;i++){
+						if (obj[i].checked){
+							result = obj[i].value;
+							break;
+						}
+					}
+				}
+			}
+		}catch(e){result="";}
+		return result;
+	}
+
+	function paymentwaySelect(paymentwayValue){
+		var paymentway_COD = document.getElementById('paymentway_COD');
+		var timerequirement = document.getElementById('timerequirement');
+		if(paymentway_COD!=null){
+			if("GENERALPOST"==paymentwayValue || "EMS"==paymentwayValue){
+				paymentway_COD.style.display="none";
+				timerequirement.style.display="none";
+				try{
+					var form = document.forms[0];
+					for (var i=0; i<form.paymentway.length; i++){
+						if(form.paymentway[i].checked && "COD"==form.paymentway[i].value){
+							if(i>0) form.paymentway[0].checked=true;
+							form.paymentway[i].checked=false;						
+							break;
+						}
+					}
+				}catch(e){;}
+			}else{
+				paymentway_COD.style.display="block";
+				timerequirement.style.display="block";
+			}
+		}
+	}
+
+	function showcashticket(){
+		var cashticketlib = document.getElementById('cashticketlib');
+		if(cashticketlib.style.display!="none"){
+			cashticketlib.style.display="none";
+		}else{
+			cashticketlib.style.display="block";
+		}
+	}
+
+	function selectcashticket(cardno, cardpwd){
+		document.forms[0].cardno.value = cardno;
+		document.forms[0].cardpassword.value = cardpwd;
+		showcashticket();
+		checkCashticket();//代金券验证
+	}
+
+	/** 根据值设置对象checked状态为true **/
+	function setSelectRadioByValue(radioObject, value){
+		if(typeof(radioObject.value)=="undefined"){
+			for(var i=0;i<radioObject.length;i++){
+				if(radioObject[i].value==value){
+					radioObject[i].checked=true;
+					break;
+				}
+			}
+		}else{
+			if(radioObject.value==value) radioObject.checked=true;
+		}
+	}
+
+	function pageinit(){	
+		var form = document.forms[0];
+		var deliverway = getradiovalue(form.deliverway);
+		if(""!=deliverway){
+			var timerequirement = document.getElementById('timerequirement');
+			if("EXPRESSDELIVERY"==deliverway || "EXIGENCEEXPRESSDELIVERY"==deliverway){
+				timerequirement.style.display="block";
+			}
+			var requirement = getradiovalue(form.requirement);
+			if(""==requirement){
+				if(form.delivernote.value.trim()!="") setSelectRadioByValue(form.requirement, "other");
+			}else if("other"!=requirement){
+				form.delivernote.value="";
+			}
+		}
+	}
+
+</SCRIPT>
+</HEAD>
+
+<body>
+	<table cellSpacing=0 cellPadding=0 align=center border=0>
+		  <tbody>
+			  <tr>
+			    <td><img src="/images/global/logo.gif" > 
+				&nbsp;&nbsp;<img height=36 src="/images/buy/az-s-checkout-payment-banne.gif" > 
+				</td>
+			  </tr>
+		  </tbody>
+	</table>
+	<br>
+	<form action="/customer/shopping/paymentsave.do" method="post">
+		<table cellSpacing=0 cellPadding=0 width="90%" align="center" border=0>
+  		<tbody>
+  			<tr>
+    			<td>
+					    <span class=h1><strong>请选择您的送货与支付方式:</strong></span> 
+     				 	<table height=31 cellSpacing=0 cellPadding=0 width="100%" border=0>
+        					<tbody>
+        						<tr>
+         							 <td>
+            							<div align=right><IMG onClick="javascript:sendForm()" height="22" src="/images/buy/az-sfl-shipping-to-this-boo.gif" vspace=5 border=0 style="CURSOR: hand;">
+        								</div>
+        							 </td>
+        					    </tr>
+	 						</tbody>
+	 					</table>
+						<a name="deliverway"></a>
+      						<table cellSpacing=1 cellPadding=1 width="100%" bgColor="#eeeecc" border=0>
+      						    <tbody>
+        						<tr>
+          							<td bgColor="#ffffff">
+            							<table cellSpacing=0 cellPadding=4 width="100%" border=0>
+              								<tbody>
+              									<tr bgColor="#eeeecc">
+                									<td colSpan=2><STRONG>&nbsp;送货方式</STRONG></td>
+                								</tr>
+												<tr>
+												 	<td class="big14" vAlign="middle" align="right" width="10%">
+												 		<input type="radio" name="deliverway" value="GENERALPOST" #if($deliverinfo.deliverway=="GENERALPOST") checked #end onclick="javascript:paymentwaySelect(this.value)"/>
+												 	</td>
+												 	<td vAlign="middle" ><B>平邮</B> (费用:0.0元)&nbsp;&nbsp;不支持货到付款，注:费用最低，需要到附近邮局自提，时间稍长</td>
+												</tr>
+												<tr>
+													<td class="big14" vAlign="middle" align="right" width="10%">
+														<input type="radio" name="deliverway" value="EXPRESSDELIVERY" #if($deliverinfo.deliverway=="EXPRESSDELIVERY") checked #end onclick="javascript:paymentwaySelect(this.value)"/>
+													</td>
+												 	<td vAlign="middle" ><B>快递送货上门 </B> (费用:0.0元)&nbsp;&nbsp;支持货到付款 &nbsp;&nbsp;注:200个城市可以到达，部分城市不能到达</td>
+												</tr>
+												<tr>
+													<td class="big14" vAlign="middle" align="right" width="10%">
+														<input type="radio" name="deliverway" value="EXIGENCEEXPRESSDELIVERY" #if($deliverinfo.deliverway=="EXIGENCEEXPRESSDELIVERY") checked #end onclick="javascript:paymentwaySelect(this.value)"/>
+													</td>
+												 	<td vAlign="middle" ><B>加急快递送货上门</B> (费用:0.0元)&nbsp;&nbsp;支持货到付款&nbsp;&nbsp;注:200个城市可以到达，部分城市不能到达</td>
+												</tr>
+												<tr>
+												 	<td class="big14" vAlign="middle" align="right" width="10%">
+												 		<input type="radio" name="deliverway" value="EMS" #if($deliverinfo.deliverway=="EMS") checked #end onclick="javascript:paymentwaySelect(this.value)"/>
+												 	</td>
+												 	<td vAlign="middle" >
+												 		<B>国内特快专递EMS</B> (费用:0.0元)&nbsp;&nbsp;不支持货到付款&nbsp;&nbsp;注:适合其他快运无法到达的城市，时间3-5个工作日
+												 	</td>
+												</tr>
+												<tr>
+				  									<td colspan="2" vAlign="middle" class="big14">
+				  										<table cellSpacing=0 cellPadding=3 width="86%" align="center" id="timerequirement" border=0 style="display:none">
+                    										<tbody>
+										                      <tr>
+										                        <td align=left colSpan=2 style="FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #000000 1px solid">时间要求(注:如对送货时间有特别要求请注明)</td>
+										                      </tr>
+										                      <tr>
+										                        <td align=right>
+										                        	<input type="radio" name="requirement" value="工作日、双休日与假日均可送货" #if($deliverinfo.requirement=="工作日、双休日与假日均可送货") checked #end/>
+										                        </td>
+										                        <td align=left width="96%">工作日、双休日与假日均可送货</td>
+										                      </tr>
+										                      <tr class=category-row-shaded>
+										                        <td align=right>
+										                        	<input type="radio" name="requirement" value="只双休日、假日送货" #if($deliverinfo.requirement=="只双休日、假日送货") checked #end/>
+										                        </td>
+										                        <td align=left>只双休日、假日送货(工作日不用送)</TD>
+										                      </tr>
+										                      <tr>
+										                        <td align=right>
+										                        	<input type="radio" name="requirement" value="只工作日送货(双休日、假日不用送)" #if($deliverinfo.requirement=="只工作日送货(双休日、假日不用送)") checked #end/>
+										                        </td>
+										                        <td align=left>只工作日送货(双休日、假日不用送) (注：写字楼/商用地址客户请选择)</td>
+										                      </tr>
+										                      <tr class=category-row-shaded>
+										                         <td align=right>
+										                         	<input type="radio" name="requirement" value="学校地址/地址白天没人，请尽量安排其他时间送货" #if($deliverinfo.requirement=="学校地址/地址白天没人，请尽量安排其他时间送货") checked #end/>
+										                         </td>
+										                         <td align=left>学校地址/地址白天没人，请尽量安排其他时间送货 (注：特别安排可能会超出预计送货天数)</td>
+										                      </tr>
+										                      <tr>
+										                        <td align=right>
+										                        	<input type="radio" name="requirement" value="other" #if($deliverinfo.requirement=="other") checked #end>
+										                        </td>
+										                        <td align=left><P>特殊说明：
+										                            <input type="text" name="delivernote" maxlength="100" size="40" value="$!deliverinfo.delivernote" onfocus="javascript:setSelectRadioByValue(this.form.requirement,'other')"/>
+										                        	</P>
+										                        </td>
+										                      </tr>
+                    										</tbody>
+                  										</table>
+                  									</td>
+				  								</tr>
+											</tbody>
+										</table>
+		  							</td>
+								</tr>
+	 						</tbody>
+	 					</table>
+					<br>
+					<a name="paymentway"></a>
+      				<table cellSpacing=1 cellPadding=1 width="100%" bgColor=#eeeecc border=0>
+      					<tbody>
+        					<tr>
+          						<td bgColor=#ffffff>
+            						<table cellSpacing=0 cellPadding=4 width="100%" border=0>
+              							<tbody>
+								             <tr bgColor=#eeeecc>
+								                <td colSpan=2><STRONG>&nbsp;支付方式</STRONG></td>
+											 </tr>
+											  <tr>
+								                <td class="big14" vAlign="middle" align="right" width="10%">
+								                	<input type="radio" name="paymentway" value="NET" #if($deliverinfo.paymentway=="NET") checked #end/>
+								                </td>
+								                <td vAlign="middle" ><B>网上支付</B>  易宝支付</td>
+											  </tr>
+								              <tr id="paymentway_COD" >
+								                <td class="big14" vAlign="middle" align="right" width="10%">
+								                	<input type="radio" name="paymentway" value="COD" #if($deliverinfo.paymentway=="COD") checked #end/>
+								                </td>
+								                <td><B>货到付款</B></td>
+											  </tr>
+											  <tr>
+								                <td class="big14" vAlign="middle" align="right" width="10%">
+								                	<input type="radio" name="paymentway" value="BANKREMITTANCE" #if($deliverinfo.paymentway=="BANKREMITTANCE") checked #end/>
+								                </td> 
+								                <td><B>银行电汇</B>  开户名: 河南省孟州市黄志磊<BR>开户行名称: 
+								                  交通银行上地支行<BR>银行帐号: ***************
+								                </td>
+								              </tr>
+								              <tr>
+                								<td class="big14" vAlign="middle" align="right" width="10%">
+                									<input type="radio" name="paymentway" value="POSTOFFICEREMITTANCE" #if($deliverinfo.paymentway=="POSTOFFICEREMITTANCE") checked #end/>
+                								</td> 
+               	 								<td><B>邮局汇款</B><BR>收款人地址：<FONT COLOR="#FF9900">河南省孟州市</FONT>&nbsp;&nbsp;收款人姓名：<FONT COLOR="#FF9900">黄志磊</FONT>&nbsp;&nbsp;收款人邮编：<FONT COLOR="#FF9900">100016</FONT><BR>请在汇款人简短留言中注明您的订单号/用户名(非常重要)<BR>
+               	 								</td>
+               	 							  </tr>
+			 								</tbody>
+			 						 </table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+        			<table height=31 cellSpacing=0 cellPadding=0 width="100%" border=0>
+        					<tbody>
+        						<tr>
+         							 <td>
+            							<div align=right><IMG onClick="javascript:sendForm()" height="22" src="/images/buy/az-sfl-shipping-to-this-boo.gif" vspace=5 border=0 style="CURSOR: hand;">
+        								</div>
+        							 </td>
+        					    </tr>
+	 						</tbody>
+	 				</table>
+        		</td>
+        	</tr>
+        </tbody>
+     	</table>
+</form>
+
+</body>
+</HTML>

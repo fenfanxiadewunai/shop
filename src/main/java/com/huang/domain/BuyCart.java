@@ -3,10 +3,52 @@ package com.huang.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.huang.domain.book.OrderContactInfo;
+import com.huang.domain.book.OrderDeliverInfo;
+import com.huang.domain.book.PaymentWay;
+
 public class BuyCart {
 	
 	private List<BuyItem> items = new ArrayList<BuyItem>();
+	private OrderDeliverInfo deliverInfo;
+	private OrderContactInfo contactInfo;
+	private Boolean buyerIsrecipients;
+	private PaymentWay paymentWay;
 	
+	private float deliveFee = 10f;
+	
+	public PaymentWay getPaymentWay() {
+		return paymentWay;
+	}
+
+	public void setPaymentWay(PaymentWay paymentWay) {
+		this.paymentWay = paymentWay;
+	}
+
+	public Boolean getBuyerIsrecipients() {
+		return buyerIsrecipients;
+	}
+
+	public void setBuyerIsrecipients(Boolean buyerIsrecipients) {
+		this.buyerIsrecipients = buyerIsrecipients;
+	}
+
+	public OrderDeliverInfo getDeliverInfo() {
+		return deliverInfo;
+	}
+
+	public void setDeliverInfo(OrderDeliverInfo deliverInfo) {
+		this.deliverInfo = deliverInfo;
+	}
+
+	public OrderContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(OrderContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
+	}
+
 	public List<BuyItem> getItems() {
 		return items;
 	}
@@ -60,7 +102,17 @@ public class BuyCart {
 		return result - getTotalSellPrice();
 	}
 
+	public float getDeliveFee() {
+		return deliveFee;
+	}
+
+	public void setDeliveFee(float deliveFee) {
+		this.deliveFee = deliveFee;
+	}
 	
+	public float orderTotalPrice(){
+		return getTotalSellPrice()+getDeliveFee();
+	}
 	
 	
 }
