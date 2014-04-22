@@ -1,0 +1,31 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.OrderDeliverInfo">
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="deliverid" parameterType="com.huang.domain.book.OrderDeliverInfo">
+		INSERT INTO orderdeliverinfo
+		(address,deliverWay,email,gender,mobile,postcode,recipients,requirement,tel) values (#{address},#{deliverWay},#{email},#{gender},#{mobile},#{postcode},#{recipients},#{requirement},#{tel})
+	</insert>
+
+	<select id="getById" parameterType="int" resultType="com.huang.domain.book.OrderDeliverInfo">
+		select * from orderdeliverinfo where deliverid = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.huang.domain.book.OrderDeliverInfo">
+	    update orderdeliverinfo
+	    <set>
+	     	<if test="address!=null">address=#{address}</if>
+	     	<if test="deliverWay!=null">,deliverWay=#{deliverWay}</if> 
+	     	<if test="email!=null">,email=#{email}</if> 
+	     	<if test="gender!=null">,gender=#{gender}</if> 
+	     	<if test="mobile!=null">,mobile=#{mobile}</if> 
+	     	<if test="postcode!=null">,postcode=#{postcode}</if> 
+	     	<if test="recipients!=null">,recipients=#{recipients}</if> 
+	     	<if test="requirement!=null">,requirement=#{requirement}</if> 
+	     	<if test="tel!=null">,tel=#{tel}</if> 
+	     </set>
+	     where deliverid=#{deliverid}
+	</update>
+	
+</mapper>
+

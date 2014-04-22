@@ -1,0 +1,29 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.OrderContactInfo">
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="contactid" parameterType="com.huang.domain.book.OrderContactInfo">
+		INSERT INTO ordercontactinfo
+		(address,buyerName,email,gender,mobile,postcode,tel) values (#{address},#{buyerName},#{email},#{gender},#{mobile},#{postcode},#{tel})
+	</insert>
+
+	<select id="getById" parameterType="int" resultType="com.huang.domain.book.OrderContactInfo">
+		select * from ordercontactinfo where contactid = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.huang.domain.book.OrderContactInfo">
+	    update ordercontactinfo
+	    <set>
+	     	<if test="address!=null">address=#{address}</if>
+	     	<if test="buyerName!=null">,buyerName=#{buyerName}</if> 
+	     	<if test="email!=null">,email=#{email}</if> 
+	     	<if test="gender!=null">,gender=#{gender}</if> 
+	     	<if test="mobile!=null">,mobile=#{mobile}</if> 
+	     	<if test="postcode!=null">,postcode=#{postcode}</if> 
+	     	<if test="tel!=null">,tel=#{tel}</if> 
+	     </set>
+	     where contactid=#{contactid}
+	</update>
+	
+</mapper>
+

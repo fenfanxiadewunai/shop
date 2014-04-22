@@ -4,6 +4,7 @@ import com.huang.domain.user.Gender;
 import com.huang.vo.DeliverVO;
 
 public class OrderDeliverInfo {
+	private Integer deliverid;
 	private String recipients;
 	private String address;
 	private String email;
@@ -16,6 +17,24 @@ public class OrderDeliverInfo {
 	
 	private String requirement;
 	
+	private Order order;
+	
+	public Integer getDeliverid() {
+		return deliverid;
+	}
+
+	public void setDeliverid(Integer deliverid) {
+		this.deliverid = deliverid;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
 	public OrderDeliverInfo(){}
 	
 	public OrderDeliverInfo(DeliverVO dvo){
@@ -88,6 +107,41 @@ public class OrderDeliverInfo {
 
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((deliverid == null) ? 0 : deliverid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderDeliverInfo other = (OrderDeliverInfo) obj;
+		if (deliverid == null) {
+			if (other.deliverid != null)
+				return false;
+		} else if (!deliverid.equals(other.deliverid))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderDeliverInfo [deliverid=" + deliverid + ", recipients="
+				+ recipients + ", address=" + address + ", email=" + email
+				+ ", postcode=" + postcode + ", tel=" + tel + ", mobile="
+				+ mobile + ", gender=" + gender + ", deliverWay=" + deliverWay
+				+ ", requirement=" + requirement + ", order=" + order + "]";
 	}
 	
 	

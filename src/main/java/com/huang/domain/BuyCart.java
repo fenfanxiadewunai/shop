@@ -8,14 +8,27 @@ import com.huang.domain.book.OrderDeliverInfo;
 import com.huang.domain.book.PaymentWay;
 
 public class BuyCart {
-	
+	/* 购物项 */
 	private List<BuyItem> items = new ArrayList<BuyItem>();
+	/* 收货人配送信息 */
 	private OrderDeliverInfo deliverInfo;
+	/* 订购者联系信息 */
 	private OrderContactInfo contactInfo;
+	/* 收货人与订购者是否相同 */
 	private Boolean buyerIsrecipients;
+	/* 支付方式 */
 	private PaymentWay paymentWay;
-	
+	/* 配送费 */	
 	private float deliveFee = 10f;
+	/* 附言 */
+	private String note;
+	
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	
 	public PaymentWay getPaymentWay() {
 		return paymentWay;
@@ -110,7 +123,7 @@ public class BuyCart {
 		this.deliveFee = deliveFee;
 	}
 	
-	public float orderTotalPrice(){
+	public float getOrderTotalPrice(){
 		return getTotalSellPrice()+getDeliveFee();
 	}
 	

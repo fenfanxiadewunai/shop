@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.Department">
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="departmentid" parameterType="com.huang.domain.privilege.Department">
+		INSERT INTO department
+		(departmentid,name) values (#{departmentid},#{name})
+	</insert>
+
+	<select id="getById" parameterType="String" resultType="com.huang.domain.privilege.Department">
+		select * from department where departmentid = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.huang.domain.privilege.Department">
+	    update department set name = #{name}
+	     where departmentid=#{departmentid}
+	</update>
+	
+	<select id="count" parameterType="String" resultType="int">
+		select count(*) from department 
+	</select>
+	
+	<select id="find" parameterType="map" resultType="com.huang.domain.privilege.Department">
+		select * from department
+		limit #{pageOffset},#{pageSize}
+	</select>
+
+	<delete id="delete" parameterType="String">
+		delete from department where departmentid=#{departmentid}
+	</delete>
+</mapper>
+

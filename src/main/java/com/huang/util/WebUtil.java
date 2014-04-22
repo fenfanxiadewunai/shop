@@ -24,6 +24,11 @@ public class WebUtil {
 	public static String getRequestURI(HttpServletRequest request){     
         return request.getRequestURI();
     }
+	
+	public static void deleteBuyCart(HttpServletRequest request){
+		request.getSession().removeAttribute("cart");
+	}
+	
     /**
      * 获取完整请求路径(含内容路径及请求参数)
      * @param request

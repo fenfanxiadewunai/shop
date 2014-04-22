@@ -84,14 +84,15 @@ a:visited {  color:#FF6600; text-decoration: none}
         <a href="/controller/brand/list.do">产品品牌管理</a> 
     </td>
   </tr>
-  <td width="50">
-        <img src="/images/vertline.gif" border=0>
-        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
-        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
-    </td>
-    <td width="123"> 
-        <a href="/controller/product/list.do">产品管理</a> 
-    </td>
+  <tr>
+	  <td width="50">
+	        <img src="/images/vertline.gif" border=0>
+	        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+	        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+	    </td>
+	    <td width="123"> 
+	        <a href="/controller/product/list.do">产品管理</a> 
+	    </td>
   </tr>
 </table>
 
@@ -141,11 +142,54 @@ a:visited {  color:#FF6600; text-decoration: none}
   </tr>
 </table>
 
+<!-------------------------部门员工管理START------------------------------->
+<table border=0 width="98%" align="center" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td colspan="3" language="JavaScript" onMouseUp="turnit('department')" style="CURSOR: hand"> 
+      <img id="Imgdepartment" src="/images/midclosedfolder.gif" align="absMiddle" border="0" width="16">
+      <img name="Imgdepartment_0" src="/images/clsfld.gif" align="absMiddle" border="0"> 
+      <font face=宋体><b>部门员工管理</b></font> 
+    </td>
+  </tr>
+</table>
+<table id="menu_department" border=0 width="98%" align="center" cellspacing="0" cellpadding="0" style="display:none">
+  <tr> 
+    <td width="50">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+    </td>
+    <td width="123"> 
+        <a href="/controller/department/list.do">部门管理</a> 
+    </td>
+  </tr>
+  <tr> 
+    <td width="50">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+    </td>
+    <td width="123"> 
+        <a href="/controller/employee/list.do">员工管理</a> 
+    </td>
+  </tr>
+  <tr> 
+    <td width="50">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+    </td>
+    <td width="123"> 
+        <a href="/controller/employee/queryUI.do">员工查询</a> 
+    </td>
+  </tr>
+</table>
+
 <table border=0 width="98%" align="center" cellspacing="0" cellpadding="0">
   <tr> 
     <td width="20"><img src="/images/lastnodeline.gif" border="0"></td>
     <td>
-      <a href="/hello/sayHi.do" target="_parent">退出系统</a>
+      <a href="/employee/logout.do" target="_parent">退出系统</a>
     </td>
   </tr> 
 </table>

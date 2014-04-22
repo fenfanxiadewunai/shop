@@ -1,0 +1,31 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.Order">
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="deliverid" parameterType="com.huang.domain.book.Order">
+		INSERT INTO t_order
+		(orderid,createDate,deliverFee,note,payablefee,paymentWay,paymentstate,productTotalPrice,state,totalPrice,username,contact_id,deliver_id) values 
+		(#{orderid},#{createDate},#{deliverFee},#{note},#{payablefee},#{paymentWay},#{paymentstate},#{productTotalPrice},#{state},#{totalPrice},#{buyer.username},#{orderContactInfo.contactid},#{orderContactInfo.deliverid})
+	</insert>
+
+	<select id="getById" parameterType="String" resultType="com.huang.domain.book.Order">
+		select * from t_order where orderid = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.huang.domain.book.Order">
+	    update t_order
+	    <set>
+	     	<if test="deliverFee!=null">deliverFee=#{deliverFee}</if>
+	     	<if test="note!=null">,note=#{note}</if> 
+	     	<if test="payablefee!=null">,payablefee=#{payablefee}</if> 
+	     	<if test="paymentWay!=null">,paymentWay=#{paymentWay}</if> 
+	     	<if test="paymentstate!=null">,paymentstate=#{paymentstate}</if> 
+	     	<if test="productTotalPrice!=null">,productTotalPrice=#{productTotalPrice}</if> 
+	     	<if test="state!=null">,state=#{state}</if> 
+	     	<if test="totalPrice!=null">,totalPrice=#{totalPrice}</if> 
+	     </set>
+	     where orderid = #{orderid}
+	</update>
+	
+</mapper>
+

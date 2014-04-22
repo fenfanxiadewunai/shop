@@ -1,0 +1,5 @@
+#if(${exist})
+<font color="red">该用户名已经存在</font>
+#else
+<font color="green">该用户名可以使用</font>
+#end

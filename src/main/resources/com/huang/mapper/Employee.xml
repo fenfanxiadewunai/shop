@@ -1,0 +1,76 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.Employee">
+
+
+	<resultMap type="com.huang.domain.privilege.Employee" id="emp">
+		<id column="username" property="username" />
+		<result column="degree" property="degree" />
+		<result column="email" property="email" />
+		<result column="gender" property="gender" />
+		<result column="imageName" property="imageName" />
+		<result column="phone" property="phone" />
+		<result column="realname" property="realname" />
+		<result column="school" property="school" />
+		<result column="visible" property="visible" />
+		<association property="department" javaType="com.huang.domain.privilege.Department">
+			<id column="departmentid" property="departmentid" />
+			<result column="name" property="name" />
+		</association>
+		<association property="idCard" javaType="com.huang.domain.privilege.IDCard">
+			<id column="id" property="id" />
+			<result column="cardno" property="cardno" />
+			<result column="address" property="address" />
+			<result column="birthday" property="birthday" />
+		</association>
+	</resultMap>
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="departmentid" parameterType="com.huang.domain.privilege.Employee">
+		INSERT INTO employee
+		(username,degree,email,gender,imageName,password,phone,realname,school,visible,department_id,card_id) values 
+		(#{username},#{degree},#{email},#{gender},#{imageName},#{password},#{phone},#{realname},#{school},#{visible},#{department.departmentid},#{idCard.id})
+	</insert>
+
+	<select id="getById" parameterType="String" resultMap="emp">
+		select * from employee left join department on department_id=departmentid left join idcard on card_id=id
+		where username = #{username}
+	</select>
+	
+	<select id="count" parameterType="String" resultType="int">
+		select count(*) from employee 
+		<where>
+			<if test="username!=null"> username = #{username}</if>
+		</where>
+	</select>
+	
+	<select id="find" parameterType="map" resultMap="emp">
+		select * from employee left join department on department_id=departmentid left join idcard on card_id=id
+		limit #{pageOffset},#{pageSize}
+	</select>
+	
+	
+	<select id="findByDynamic" parameterType="map" resultMap="emp">
+	    select * from employee left join department on department_id=departmentid left join idcard on card_id=id
+		<where>
+			<if test="username!=null">and username like #{username}</if>
+			<if test="realname!=null">and realname like #{realname}</if>
+			<if test="departmentid!=null">and departmentid = #{departmentid}</if>
+		</where>
+		limit #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="countByDynamic" parameterType="map" resultType="int">
+	    select count(*) from employee left join department on department_id=departmentid left join idcard on card_id=id
+		<where>
+			<if test="username!=null">and username like #{username}</if>
+			<if test="realname!=null">and realname like #{realname}</if>
+			<if test="departmentid!=null">and departmentid = #{departmentid}</if>
+		</where>
+	</select>
+	
+	<select id="validate" parameterType="map" resultType="int">
+	    select count(*) from employee where username=#{username} and password=#{password}
+	</select>
+
+</mapper>
+

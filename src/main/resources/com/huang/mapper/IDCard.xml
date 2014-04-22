@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.IDCard">
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="com.huang.domain.privilege.IDCard">
+		INSERT INTO idcard
+		(address,birthday,cardno) values (#{address},#{birthday},#{cardno})
+	</insert>
+
+	<select id="getById" parameterType="int" resultType="com.huang.domain.privilege.IDCard">
+		select * from idcard where id = #{id}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from idcard where departmentid=#{departmentid}
+	</delete>
+</mapper>
+
