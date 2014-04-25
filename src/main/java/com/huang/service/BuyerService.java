@@ -19,4 +19,6 @@ public interface BuyerService {
 	public int countAll();
 	public List<Buyer> find(int pageSize,int pageOffset);
 	public void setVisibleStatus(String[] usernames,boolean status);
+
+	public Buyer getWithPassword(String username);
 }

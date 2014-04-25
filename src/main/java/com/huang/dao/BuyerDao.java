@@ -23,4 +23,6 @@ public interface BuyerDao {
 	
 	public void setVisibleStatus(String[] usernames,boolean status);
 
+	public Buyer getWithPassword(String username);
+
 }

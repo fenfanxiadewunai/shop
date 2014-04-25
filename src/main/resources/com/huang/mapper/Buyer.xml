@@ -24,6 +24,10 @@
 		select username,email,gender,realname,regTime,visible,contactid from buyer where username = #{username}
 	</select>
 	
+	<select id="getByUserNameWithPassword" parameterType="String" resultType="com.huang.domain.user.Buyer">
+		select username,password,email,gender,realname,regTime,visible,contactid from buyer where username = #{username}
+	</select>
+	
 	<select id="find" parameterType="map" resultType="com.huang.domain.user.Buyer">
 		select username,email,gender,realname,regTime,visible,contactid from buyer order by regTime desc limit #{pageOffset},#{pageSize}
 	</select>
@@ -37,6 +41,10 @@
 		<foreach item="username" index="index" collection="usernames" open="(" separator="," close=")">
 		   #{username}
 		</foreach>
+	</update>
+	
+	<update id="updatepassword" parameterType="map">
+	    update buyer set password=#{password} where username = #{username}
 	</update>
 	
 </mapper>

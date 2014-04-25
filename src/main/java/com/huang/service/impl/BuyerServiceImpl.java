@@ -44,6 +44,11 @@ public class BuyerServiceImpl implements BuyerService{
 	public Buyer get(String username) {
 		return buyerDao.get(username);
 	}
+	
+	@Override
+	public Buyer getWithPassword(String username) {
+		return buyerDao.getWithPassword(username);
+	}
 
 	@Override
 	public int countAll() {

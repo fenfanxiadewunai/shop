@@ -19,7 +19,7 @@
 	<aop:aspectj-autoproxy/>
 	
 	<context:component-scan
-		base-package="com.huang.controller,com.huang.service.impl,com.huang.dao.impl" />
+		base-package="com.huang.controller,com.huang.service.impl,com.huang.dao.impl,com.huang.util.VelocityUtil" />
 
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -37,6 +37,10 @@
 
 	<bean id="dao" class="com.huang.dao.impl.DaoFactory">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="velocityUtil" class="com.huang.util.VelocityUtil">
+		<property name="VelocityConfigurer" ref="velocityConfigurer" />
 	</bean>
 
 	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 

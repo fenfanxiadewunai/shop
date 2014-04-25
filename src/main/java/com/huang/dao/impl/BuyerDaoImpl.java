@@ -35,7 +35,10 @@ public class BuyerDaoImpl implements BuyerDao{
 
 	@Override
 	public void updatePassword(String username, String newpassword) {
-		
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("username", username);
+		params.put("password", newpassword);
+		dao.getSqlSession().selectOne("com.huang.mapper.Buyer.updatepassword", params);
 	}
 
 	@Override
@@ -46,6 +49,11 @@ public class BuyerDaoImpl implements BuyerDao{
 	@Override
 	public Buyer get(String username) {
 		return dao.getSqlSession().selectOne("com.huang.mapper.Buyer.getByUserName", username);
+	}
+	
+	@Override
+	public Buyer getWithPassword(String username) {
+		return dao.getSqlSession().selectOne("com.huang.mapper.Buyer.getByUserNameWithPassword", username);
 	}
 
 	@Override
