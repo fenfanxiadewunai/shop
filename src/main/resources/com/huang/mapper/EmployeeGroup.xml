@@ -1,0 +1,25 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.EmployeeGroup">
+
+
+
+	<insert id="add" parameterType="map">
+		INSERT INTO eg (username,group_id) values (#{username},#{groupid})
+	</insert>
+
+	<select id="find" resultType="com.huang.domain.privilege.PrivilegeGroup">
+		select * from eg left join privilegegroup on group_id = groupid where username=#{username}
+	</select>
+	
+	<delete id="delete" parameterType="map">
+		delete from eg where username=#{username} and group_id=#{groupid}
+	</delete>
+	
+	<select id="findAll" resultType="com.huang.domain.privilege.PrivilegeGroup">
+		select * from privilegegroup 
+	</select>
+	
+	
+</mapper>
+

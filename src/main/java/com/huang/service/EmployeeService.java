@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.huang.domain.privilege.Employee;
+import com.huang.domain.privilege.PrivilegeGroup;
 
 public interface EmployeeService {
 	
@@ -22,5 +23,13 @@ public interface EmployeeService {
 	public List<Employee> findByDynamic(HashMap<String, Object> map);
 	
 	public boolean validate(String username,String password);
+
+	public void addPrivilegeGroup(String username, PrivilegeGroup group);
+
+	public void addPrivilegeGroupList(String username, List<PrivilegeGroup> groups);
+
+	public List<PrivilegeGroup> findAllPrivilegeGroupList();
+	
+	public void updatePrivilegeGroup(String username,List<String> groupids);
 
 }

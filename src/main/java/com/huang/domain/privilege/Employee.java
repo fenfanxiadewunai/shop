@@ -1,6 +1,7 @@
 package com.huang.domain.privilege;
 
 import java.text.ParseException;
+import java.util.List;
 
 import com.huang.domain.user.Gender;
 import com.huang.vo.EmployeeVO;
@@ -19,13 +20,14 @@ public class Employee {
 	private Boolean visible = true;
 	private Department department;
 	
+	private List<PrivilegeGroup> groups;
+	
 	public Employee(){}
 	
 	public Employee(String username, String password, String realname,
 			Gender gender, String degree, IDCard idCard, String school,
 			String phone, String email, String imageName, Boolean visible,
 			Department department) {
-		super();
 		this.username = username;
 		this.password = password;
 		this.realname = realname;
@@ -165,6 +167,14 @@ public class Employee {
 				+ ", phone=" + phone + ", email=" + email + ", imageName="
 				+ imageName + ", visible=" + visible + ", department="
 				+ department + "]";
+	}
+
+	public List<PrivilegeGroup> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<PrivilegeGroup> groups) {
+		this.groups = groups;
 	}
 	
 	

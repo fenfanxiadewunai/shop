@@ -54,7 +54,7 @@
 	    </div>
 	  </td>
 	  <td bgcolor="f5f5f5"><div align="center">${emp.username}</div></td>
-      <td bgcolor="f5f5f5"><div align="center"><a href="">设置权限</a></div></td>
+      <td bgcolor="f5f5f5"><div align="center"><a href="/controller/employee/privilegeGroupSetUI.do?username=${emp.username}">设置权限</a></div></td>
       <td bgcolor="f5f5f5"><div align="center">${emp.realname}</div></td>
       <td bgcolor="f5f5f5"><div align="center">${emp.gender.name}</div></td>
       <td bgcolor="f5f5f5"><div align="center">${emp.phone}</div></td>

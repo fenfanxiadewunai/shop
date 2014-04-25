@@ -183,6 +183,16 @@ a:visited {  color:#FF6600; text-decoration: none}
         <a href="/controller/employee/queryUI.do">员工查询</a> 
     </td>
   </tr>
+   <tr> 
+    <td width="50">
+        <img src="/images/vertline.gif" border=0>
+        <img src="/images/lastnodeline.gif" align="absMiddle" border=0 width="16" height="22">
+        <img src="/images/doctemp.gif" align="absMiddle" border="0" width="16" height="16">
+    </td>
+    <td width="123"> 
+        <a href="/controller/privilegegroup/list.do">权限组管理</a> 
+    </td>
+  </tr>
 </table>
 
 <table border=0 width="98%" align="center" cellspacing="0" cellpadding="0">

@@ -1,0 +1,37 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.SystemPrivilege">
+
+
+	<resultMap type="com.huang.domain.privilege.SystemPrivilege" id="sp">
+		<id column="id" property="id"/>
+		<result column="name" property="name" />
+		<association property="spp" javaType="com.huang.domain.privilege.SystemPrivilegePK">
+			<id column="module" property="module" />
+			<id column="privilege" property="privilege" />
+		</association>
+	</resultMap>
+
+	<insert id="add" parameterType="com.huang.domain.privilege.SystemPrivilege">
+		INSERT INTO systemprivilege (module,privilege,name) values (#{spp.module},#{spp.privilege},#{name})
+	</insert>
+
+	<select id="getById" parameterType="com.huang.domain.privilege.SystemPrivilegePK" resultMap="sp">
+		select * from systemprivilege 
+		where module = #{module} and privilege = #{privilege}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from systemprivilege 
+	</select>
+	
+	<select id="find" resultMap="sp">
+		select * from systemprivilege limit #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="findAll" resultMap="sp">
+		select * from systemprivilege
+	</select>
+	
+</mapper>
+

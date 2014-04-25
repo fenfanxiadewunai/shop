@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.huang.domain.privilege.Employee;
 import com.huang.service.EmployeeService;
 import com.huang.vo.EmployeeVO;
 
@@ -24,7 +25,8 @@ public class EmployeeManageController {
 		
 		if(evo.getUsername()!=null&&!evo.getUsername().equals("")&&evo.getPassword()!=null&&!evo.getPassword().equals("")){
 			if(employeeService.validate(evo.getUsername(), evo.getPassword())){
-				session.setAttribute("employee", employeeService.getById(evo.getUsername()));
+				Employee employee = employeeService.getById(evo.getUsername());
+				session.setAttribute("employee", employee);
 				return "redirect:/center/main.do";
 			}
 			model.addAttribute("message", "用户名或密码有误");

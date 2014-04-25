@@ -1,0 +1,29 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.PrivilegeSystem">
+
+
+	<resultMap type="com.huang.domain.privilege.SystemPrivilege" id="sp">
+		<id column="id" property="id"/>
+		<result column="name" property="name" />
+		<association property="spp" javaType="com.huang.domain.privilege.SystemPrivilegePK">
+			<id column="module" property="module" />
+			<id column="privilege" property="privilege" />
+		</association>
+	</resultMap>
+
+	<insert id="add" parameterType="map">
+		INSERT INTO ps (group_id,privilege_id) values (#{groupid},#{privilegeid})
+	</insert>
+
+	<select id="find" resultMap="sp">
+		select * from ps left join systemprivilege on privilege_id = id where group_id=#{groupid}
+	</select>
+	
+	<delete id="delete" parameterType="map">
+		delete from ps where group_id=#{groupid} and privilege_id=#{privilegeid}
+	</delete>
+	
+	
+</mapper>
+

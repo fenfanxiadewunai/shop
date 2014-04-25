@@ -9,12 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.huang.domain.BuyCart;
+import com.huang.domain.privilege.Employee;
 import com.huang.domain.user.Buyer;
 
 public class WebUtil {
 	
 	public static Buyer getBuyer(HttpServletRequest request){
 		return (Buyer) request.getSession().getAttribute("user");
+	}
+	
+	public static Employee getEmployee(HttpServletRequest request){
+		return (Employee) request.getSession().getAttribute("employee");
 	}
 	
 	public static BuyCart getBuyCart(HttpServletRequest request){

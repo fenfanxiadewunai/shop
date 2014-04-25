@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.huang.dao.EmployeeDao;
 import com.huang.dao.IDCardDao;
 import com.huang.domain.privilege.Employee;
+import com.huang.domain.privilege.PrivilegeGroup;
+import com.huang.service.EmployeeGroupService;
 import com.huang.service.EmployeeService;
+import com.huang.service.PrivilegeGroupService;
 import com.huang.util.MD5;
 
 
@@ -24,6 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Resource
 	private IDCardDao cardDao;
 	
+	@Resource
+	private EmployeeGroupService employeeGroupService;
+	
+	@Resource
+	private PrivilegeGroupService privilegeGroupService;
+	
 	@Override
 	public void add(Employee employee) {
 		int cartid = cardDao.add(employee.getIdCard());
@@ -34,7 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public Employee getById(String id) {
-		return employeeDao.getById(id);
+		Employee employee = employeeDao.getById(id);
+		initGroup(employee);
+		return employee;
 	}
 
 	@Override
@@ -66,6 +77,41 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public boolean validate(String username, String password) {
 		return employeeDao.validate(username, MD5.MD5Encode(password));
+	}
+	
+	private void initGroup(Employee employee){
+		List<PrivilegeGroup> groups = employeeGroupService.find(employee.getUsername());
+		employee.setGroups(groups);
+	}
+	
+	@Override
+	public void addPrivilegeGroup(String username,PrivilegeGroup group){
+		employeeGroupService.add(username, group.getGroupid());
+	}
+	
+	@Override
+	public void addPrivilegeGroupList(String username,List<PrivilegeGroup> groups){
+		for(PrivilegeGroup group: groups){
+			employeeGroupService.add(username, group.getGroupid());
+		}
+	}
+	
+	@Override
+	public List<PrivilegeGroup> findAllPrivilegeGroupList(){
+		return employeeGroupService.findAll();
+	}
+
+	@Override
+	public void updatePrivilegeGroup(String username,
+			List<String> groupids) {
+		Employee employee = employeeDao.getById(username);
+		initGroup(employee);
+		for(PrivilegeGroup group: employee.getGroups()){
+			employeeGroupService.delete(username, group.getGroupid());
+		}
+		for(String groupid: groupids){
+			employeeGroupService.add(username, groupid);
+		}
 	}
 
 }

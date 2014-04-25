@@ -3,6 +3,7 @@ package com.huang.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.huang.domain.privilege.Department;
 import com.huang.domain.privilege.Employee;
+import com.huang.domain.privilege.PrivilegeGroup;
 import com.huang.service.DepartmentService;
 import com.huang.service.EmployeeService;
 import com.huang.util.PageUtil;
@@ -54,7 +56,6 @@ public class EmployeeController {
 
 	@RequestMapping("/add.do")
 	public String toAdd(Model model,EmployeeVO evo,HttpServletRequest request) throws Exception{
-		
 		
 		MultipartHttpServletRequest rm = (MultipartHttpServletRequest) request;
 
@@ -134,4 +135,25 @@ public class EmployeeController {
 		model.addAttribute("exist", exist);
 		return "page/department/usernameIsExist";
 	}
+	
+	@RequestMapping("/privilegeGroupSetUI.do")
+	public String toSetPrivilegeGroupUI(Model model,String username){
+		Employee employee = employeeService.getById(username);
+		List<PrivilegeGroup> allgroups = employeeService.findAllPrivilegeGroupList();
+		model.addAttribute("itsgroups", employee.getGroups());
+		model.addAttribute("allgroups", allgroups);
+		model.addAttribute("username", username);
+		return "page/department/privilegeSet";
+	}
+	
+	@RequestMapping("/privilegeGroupSet.do")
+	public String toSetPrivilegeGroup(Model model,String username,String[] groups){
+		if(username!=null&&!username.equals("")){
+			List<String> groupids = Arrays.asList(groups);
+			employeeService.updatePrivilegeGroup(username, groupids);
+		}
+		return "redirect:list.do";
+	}
+	
+	
 }

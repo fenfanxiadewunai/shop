@@ -20,6 +20,11 @@
 		<filter-class>com.huang.filter.BuyCartValidateFilter</filter-class>
 	</filter>
 	
+	<filter>
+		<filter-name>PrivilegeFilter</filter-name>
+		<filter-class>com.huang.filter.PrivilegeFilter</filter-class>
+	</filter>
+	
     <filter-mapping>
 		<filter-name>BuyerLoginValidateFilter</filter-name>
 		<url-pattern>/customer/*</url-pattern>
@@ -35,6 +40,10 @@
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping> 
 	
+	<filter-mapping>
+		<filter-name>PrivilegeFilter</filter-name>
+		<url-pattern>/controller/*</url-pattern>
+	</filter-mapping> 
 
 	
 	<listener>

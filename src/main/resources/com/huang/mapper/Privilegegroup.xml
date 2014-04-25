@@ -1,0 +1,36 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.huang.mapper.PrivilegeGroup">
+
+	<insert id="add" useGeneratedKeys="true" keyProperty="groupid" parameterType="com.huang.domain.privilege.PrivilegeGroup">
+		INSERT INTO privilegegroup
+		(groupid,name) values (#{groupid},#{name})
+	</insert>
+
+	<select id="getById" parameterType="String" resultType="com.huang.domain.privilege.PrivilegeGroup">
+		select * from privilegegroup where groupid=#{groupid}
+	</select>
+	
+	<update id="update" parameterType="com.huang.domain.privilege.PrivilegeGroup">
+	    update privilegegroup set name = #{name}
+	     where groupid=#{groupid}
+	</update>
+	
+	<select id="count" parameterType="String" resultType="int">
+		select count(*) from privilegegroup 
+	</select>
+	
+	<select id="find" parameterType="map" resultType="com.huang.domain.privilege.PrivilegeGroup">
+		select * from privilegegroup
+		limit #{pageOffset},#{pageSize}
+	</select>
+	
+	<select id="findAll" parameterType="map" resultType="com.huang.domain.privilege.PrivilegeGroup">
+		select * from privilegegroup
+	</select>
+
+	<delete id="delete" parameterType="String">
+		delete from privilegegroup where groupid=#{groupid}
+	</delete>
+</mapper>
+

@@ -16,5 +16,9 @@
 		<mapper resource="com/huang/mapper/Department.xml"/>
 		<mapper resource="com/huang/mapper/IDCard.xml"/>
 		<mapper resource="com/huang/mapper/Employee.xml"/>
+		<mapper resource="com/huang/mapper/SystemPrivilege.xml"/>
+		<mapper resource="com/huang/mapper/Privilegegroup.xml"/>
+		<mapper resource="com/huang/mapper/PrivilegeSystem.xml"/>
+		<mapper resource="com/huang/mapper/EmployeeGroup.xml"/>
 	</mappers>
 </configuration>
